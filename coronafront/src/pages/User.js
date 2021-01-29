@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
-function User(props) {
+function User({user}) {
 
     /*const [user, setUser] = React.useState([]);
     const [error, setError] = React.useState('Searching...');
@@ -39,7 +39,7 @@ function User(props) {
     return (
         <div>
             {
-                props.map( user =>{
+                user.map( user =>{
                     return(
                         <div>
                         <Grid container spacing={3} alignItems="center" justify="center">
