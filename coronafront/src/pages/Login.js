@@ -6,21 +6,17 @@ import PropTypes from 'prop-types';
 function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [error, setError] = React.useState('Searching...');
 
     const loginUser = async (credentials) => {
-        try {
-            return fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(credentials)
-            })
-            .then(data => data.json())
-        } catch(error) {
-            setError('Something went wrong :(');
-        }
+        return fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+        .then(data => data.json())
+    }
         
         //Handlesubmit, it is not being recognized down below for some reason.
         const handleSubmit = async e => {
@@ -31,17 +27,6 @@ function Login({ setToken }) {
             });
             setToken(token);
         }
-
-        //Error handling
-        if (error.length > 0) {
-            return(
-                <Grid container spacing={3} alignItems="center" justify="center">
-                    <p>{ error }</p>
-                </Grid>
-            );
-        }
-
-    }
 
     return (
         <div>
