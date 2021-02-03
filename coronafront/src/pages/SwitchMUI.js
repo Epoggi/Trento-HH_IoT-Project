@@ -9,6 +9,8 @@ import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Person from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
@@ -43,6 +45,14 @@ function SwitchMUI (props) {
           <ListItem button component={Link} to = '/user'>
             <ListItemIcon><Person style={{fill: "FFFFFF"}}/></ListItemIcon>
             <ListItemText primary='Users' />
+          </ListItem>
+          <ListItem button component={Link} to = '/login'>
+            <ListItemIcon><ExitToAppIcon style={{fill: "FFFFFF"}}/></ListItemIcon>
+            <ListItemText primary='Login' />
+          </ListItem>
+          <ListItem button component={Link} to = '/admin'>
+            <ListItemIcon><SupervisorAccountIcon style={{fill: "FFFFFF"}}/></ListItemIcon>
+            <ListItemText primary='Admin' />
           </ListItem>
         </List>
       

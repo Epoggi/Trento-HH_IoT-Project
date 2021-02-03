@@ -44,6 +44,7 @@ function User({user}) {
                         <div>
                         <Grid container spacing={3} alignItems="center" justify="center">
                         <Grid item xs={4}>
+                            
                         <ExpansionPanel>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
