@@ -37,8 +37,9 @@ app.post('/login', async (req, res) => {
   }
   try {
     if(await bcrypt.compare(req.body.password, user.password)) {
+      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+      console.log(process.env.ACCESS_TOKEN_SECRET)
       res.send('Success')
-     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN)
      res.json({ accessToken: accessToken})
     } else {
       res.send('Not Allowed')
