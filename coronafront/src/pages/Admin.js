@@ -10,31 +10,31 @@ import EditIcon from '@material-ui/icons/Edit';
 
 function Admin() {
 
-    /*const [user, setUser] = React.useState([]);
+    const [Logins, setLogins] = React.useState([]);
     const [error, setError] = React.useState('Searching...');
 
     const fetchUrl = async () => {
         try {
             const response = await fetch('http://localhost:8080/user');
             const json = await response.json();
-            setUser(json);
+            setLogins(json);
             setError('');
 
         } catch(error) {
-            setUser([]);
+            setLogins([]);
             setError('Something went wrong :(');
-       }
+        }
 
-    React.useEffect( () => { fetchUrl() }, []);
+        React.useEffect( () => { fetchUrl() }, []);
 
-    if (error.length > 0) {
-        return(
-            <Grid container spacing={3} alignItems="center" justify="center">
-                <p>{ error }</p>
-            </Grid>
-        );
+        if (error.length > 0) {
+            return(
+                <Grid container spacing={3} alignItems="center" justify="center">
+                    <p>{ error }</p>
+                </Grid>
+            );
+        }
     }
-    }*/
 
     return (
         <div>

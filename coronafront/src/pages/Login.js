@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import './Login.css';
 import PropTypes from 'prop-types';
 
-function Login({ setToken }) {
+function Login({ setToken, setType }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -18,14 +18,14 @@ function Login({ setToken }) {
         .then(data => data.json())
     }
         
-        //Handlesubmit, it is not being recognized down below for some reason.
         const handleSubmit = async e => {
             e.preventDefault();
-            const token = await loginUser({
+            const answer = await loginUser({
               email,
               password
             });
-            setToken(token);
+            setToken(answer.token);
+            setType(answer.type);
         }
 
     return (
@@ -55,7 +55,8 @@ function Login({ setToken }) {
 }
 
 Login.propTypes = {
-    setToken: PropTypes.func.isRequired
+    setToken: PropTypes.func.isRequired,
+    setType: PropTypes.func.isRequired
 }
 
 export default Login

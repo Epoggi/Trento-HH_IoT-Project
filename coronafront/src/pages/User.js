@@ -8,33 +8,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
-function User({user}) {
+function User() {
 
-    /*const [user, setUser] = React.useState([]);
-    const [error, setError] = React.useState('Searching...');
+    const [user, setUser] = React.useState([]);
 
-    const fetchUrl = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/user');
-            const json = await response.json();
-            setUser(json);
-            setError('');
-
-        } catch(error) {
-            setUser([]);
-            setError('Something went wrong :(');
-       }
-
-    React.useEffect( () => { fetchUrl() }, []);
-
-    if (error.length > 0) {
-        return(
-            <Grid container spacing={3} alignItems="center" justify="center">
-                <p>{ error }</p>
-            </Grid>
-        );
+    const getData = async () => {
+        fetch('http://localhost:8080/user')
+        .then(res => res.text())
+        .then(res => setUser({message: res}));
     }
-    }*/
 
     return (
         <div>

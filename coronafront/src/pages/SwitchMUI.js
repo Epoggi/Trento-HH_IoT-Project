@@ -42,7 +42,7 @@ function SwitchMUI (props) {
 
       <Drawer anchor='left' open={ open } onClick={ handleClose } classes={{ paper: styles.paper }}>
         <List>
-          <ListItem button component={Link} to = '/user'>
+          <ListItem button component={Link} to = '/'>
             <ListItemIcon><Person style={{fill: "FFFFFF"}}/></ListItemIcon>
             <ListItemText primary='Users' />
           </ListItem>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import User from './pages/User'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
@@ -43,21 +43,15 @@ const theme = createMuiTheme({
   }
 });
 
-const user = [
-  {
-      name: 'Simeoni Häyhä',
-      health: 'Good'
-  }
-]
-
 function App() {
   const [token, setToken] = useState();
+  const [type, setType] = useState();
 
   if(!token){
   return(    
     <MuiThemeProvider theme={ theme }>
       <CssBaseline />
-      <Login setToken={setToken} />
+      <Login setToken={setToken} setType={setType}/>
     </MuiThemeProvider>
   );
   }
@@ -69,11 +63,8 @@ function App() {
               <CssBaseline />
               <SwitchMUI/>
                 <Switch>
-                  <Route exact path='/user' render={(props) => <User {...props} user={user}/> }/>
-                </Switch> 
-                <Switch>
-                  <Route exact path='/login' render={(props) => <Login/> }/>
-                </Switch> 
+                  <Route exact path='/' exact render={(props) => <User/> }/>
+                </Switch>
                 <Switch>
                   <Route exact path='/admin' render={(props) => <Admin/> }/>
                 </Switch> 
