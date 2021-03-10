@@ -40,7 +40,7 @@ app.post('/login', async (req, res) => {
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
       console.log(process.env.ACCESS_TOKEN_SECRET)
       res.send('Success')
-     res.json({ accessToken: accessToken})
+      res.json({ accessToken: accessToken})
     } else {
       res.send('Not Allowed')
     }

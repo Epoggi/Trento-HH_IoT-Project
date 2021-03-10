@@ -11,19 +11,19 @@ const withAuth = function(req, res, next)  {
   if (type = "user"){
     res.status(401).send('401: You are not authorized to view this.');
   } else {
-    req.email = decoded.email;
+    req.name = decoded.name;
     next();
   }
 }
 
 const Logins = [
   {
-    email: "user",
+    name: "user",
     password: "user",
     type: "user"
   },
   {
-    email: "admin",
+    name: "admin",
     password: "admin",
     type: "admin"
   }
@@ -38,7 +38,7 @@ const user = [
 ]
 
 app.use('/login', (req, res) => {
-  let user = Logins.find( x => x.email === req.body.email);
+  let user = Logins.find( x => x.name === req.body.name);
   if (user){
     res.send({
       token: 'test123',

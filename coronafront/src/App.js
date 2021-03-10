@@ -6,16 +6,11 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import User from './pages/User'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
+import Charts from './pages/Charts'
 
 import SwitchMUI from './pages/SwitchMUI';
 
 const theme = createMuiTheme({
-  palette: {
-      primary: {main: '#2b2b2b', contrastText: '#FFFFFF'},
-      secondary: {main: '#232323', contrastText: '#FFFFFF'},
-      text: {primary: '#FFFFFF', secondary: '#bdbdbd' },
-      background: {default: '#1a1a1a'}
-  },
   overrides:{
       MuiExpansionPanelSummary: {
           root: {
@@ -67,6 +62,9 @@ function App() {
                 </Switch>
                 <Switch>
                   <Route exact path='/admin' render={(props) => <Admin/> }/>
+                </Switch> 
+                <Switch>
+                  <Route exact path='/chart' render={(props) => <Charts/> }/>
                 </Switch> 
             </div>
           </BrowserRouter>

@@ -17,7 +17,8 @@ const ProtectedRoute = ({ component: Component, roles = undefined, ...rest }) =>
                         to={{
                             pathname: '/unauthorized',
                             state: { from: props.location },
-                        }} />
+                        }}
+                    />
                 }
             } else {
                 return <Component {...props} />;
@@ -27,7 +28,8 @@ const ProtectedRoute = ({ component: Component, roles = undefined, ...rest }) =>
                 to={{
                     pathname: '/user/login',
                     state: { from: props.location },
-                }} />
+                }}
+            />
         }
     }
 

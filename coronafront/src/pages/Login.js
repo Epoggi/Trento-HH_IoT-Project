@@ -4,7 +4,7 @@ import './Login.css';
 import PropTypes from 'prop-types';
 
 function Login({ setToken, setType }) {
-    const [email, setEmail] = useState();
+    const [name, setName] = useState();
     const [password, setPassword] = useState();
 
     const loginUser = async (credentials) => {
@@ -18,15 +18,15 @@ function Login({ setToken, setType }) {
         .then(data => data.json())
     }
         
-        const handleSubmit = async e => {
-            e.preventDefault();
-            const answer = await loginUser({
-              email,
-              password
-            });
-            setToken(answer.token);
-            setType(answer.type);
-        }
+    const handleSubmit = async e => {
+        e.preventDefault();
+        const answer = await loginUser({
+            name: name,
+            password: password
+        });
+        setToken(answer.token);
+        setType(answer.type);
+    }
 
     return (
         <div>
@@ -36,8 +36,8 @@ function Login({ setToken, setType }) {
                         <h2>Login</h2>
                             <form onSubmit={handleSubmit}>
                             <label>
-                                <p>Email</p>
-                                <input type="text" onChange={e => setEmail(e.target.value)}/>
+                                <p>Name</p>
+                                <input type="text" onChange={e => setName(e.target.value)}/>
                             </label>
                             <label>
                                 <p>Password</p>
