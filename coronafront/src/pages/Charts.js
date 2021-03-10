@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 import { Scatter } from 'react-chartjs-2';
 import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
 
 function Charts() {
 
-    /*const [user, setUser] = React.useState([]);
-
-    const getData = async () => {
-        fetch('http://localhost:8080/user')
-        .then(res => res.text())
-        .then(res => setUser({message: res}));
-    }*/
+    const [mins, setMins] = React.useState(5);
 
     const [readyData, setReadyData] = React.useState([]);
 
@@ -32,6 +27,36 @@ function Charts() {
         { x: 26, y: 13, timestamp: "2020-02-11T09:15:30.000Z", tagId: 12, roomid: 11, }
     ]
 
+    let risks = []
+
+    const checkRisk = () => {
+        let i;
+        for(i = 0; i < rawdata.length-1; i++){
+            console.log("I: " + i);
+            let comparable = new Date(rawdata[i].timestamp);
+            console.log("Comparable: " + comparable);
+            let i2;
+
+            for(i2 = i+1; i2 < rawdata.length; i2++) {
+                console.log("I2: " + i2);
+                console.log("Compared to: " + new Date(rawdata[i2].timestamp));
+                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(rawdata[i2].timestamp))/1000/60);
+
+                if(Math.abs(comparable - new Date(rawdata[i2].timestamp))/1000/60 < mins){
+                    let distance = calcDist(rawdata[i], rawdata[i2]);
+                    console.log("Distance: " + distance);
+                    console.log("-----");
+
+                    if (distance < 5){
+                        risks.push( {"dist": distance, "person1": rawdata[i].tagId, "person2": rawdata[i2].tagId, "time": rawdata[i].timestamp} );
+                    }
+                }
+            }
+        }
+        console.log(risks);
+        console.log("---------------------------------------------")
+    }
+
     const [earliest, setEarliest] = React.useState(new Date(Math.min(...rawdata.map(e => new Date(e.timestamp)))));
     const [latest, setLatest] = React.useState(new Date(Math.max(...rawdata.map(e => new Date(e.timestamp)))));
 
@@ -42,9 +67,10 @@ function Charts() {
     }
 
     const calcDist = (posit1, posit2) => {
-        let dist1 = posit1.y - posit1.x
-        let dist2 = posit2.y - posit2.x
-        return Math.hypot(dist1, dist2)
+        let dist1 = Math.pow((posit1.x - posit2.x),2)
+        let dist2 = Math.pow((posit1.y - posit2.y),2)
+
+        return Math.sqrt(Math.abs(dist1+dist2))
     }
 
     const data = {
@@ -110,6 +136,13 @@ function Charts() {
                                     filter
                                 </Button>
                             </Grid>
+                        </Grid>
+                        <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="flex-end">
+                            <form>
+                                <Button onClick={checkRisk} color="primary" variant="contained">
+                                    get risks
+                                </Button>
+                            </form>
                         </Grid>
                     </Grid>
                 </div>
