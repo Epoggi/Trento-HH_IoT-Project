@@ -42,14 +42,14 @@ function App() {
   const [token, setToken] = useState();
   const [type, setType] = useState();
 
-  if(!token){
+  /*if(!token){
   return(    
     <MuiThemeProvider theme={ theme }>
       <CssBaseline />
       <Login setToken={setToken} setType={setType}/>
     </MuiThemeProvider>
   );
-  }
+  }*/
 
   return(
       <MuiThemeProvider theme={ theme }>
