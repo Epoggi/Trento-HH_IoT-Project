@@ -42,7 +42,7 @@ function App() {
   const [token, setToken] = useState();
   const [type, setType] = useState();
 
-  if(!token){
+/*   if(!token){
   return(    
     <MuiThemeProvider theme={ theme }>
       <CssBaseline />
@@ -50,7 +50,7 @@ function App() {
     </MuiThemeProvider>
   );
   }
-
+ */
   return(
       <MuiThemeProvider theme={ theme }>
           <BrowserRouter>

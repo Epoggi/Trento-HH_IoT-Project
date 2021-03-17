@@ -24,7 +24,7 @@ function Admin() {
             setLogins([]);
             setError('Something went wrong :(');
         }
-
+}
         React.useEffect( () => { fetchUrl() }, []);
 
         if (error.length > 0) {
@@ -34,7 +34,7 @@ function Admin() {
                 </Grid>
             );
         }
-    }
+    
 
     return (
         <div>
