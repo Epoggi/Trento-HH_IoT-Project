@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { Scatter } from 'react-chartjs-2';
 import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
+import DataJson from '../data/csvjson.json'
 
 
 function Charts() {
@@ -13,7 +14,17 @@ function Charts() {
 
     const [readyData, setReadyData] = React.useState([]);
 
+    const trentodata = DataJson;
+
     const rawdata = [
+        {
+            "name": "Location",
+            "time": 1614944496619605500,
+            "room": "lab",
+            "tagID": 2,
+            "x": 2.693613716183034,
+            "y": 3.5775570877129788
+          },
         { x: 15, y: 30, timestamp: "2020-02-11T09:10:30.000Z", tagId: 1, roomid: 1, },
         { x: 20, y: 17, timestamp: "2020-02-11T09:18:30.000Z", tagId: 2, roomid: 2, },
         { x: 13, y: 34, timestamp: "2020-02-11T09:30:30.000Z", tagId: 3, roomid: 3, },
@@ -32,24 +43,24 @@ function Charts() {
 
     const checkRisk = () => {
         let i;
-        for(i = 0; i < rawdata.length-1; i++){
+        for(i = 0; i < trentodata.length-1; i++){
             console.log("I: " + i);
-            let comparable = new Date(rawdata[i].timestamp);
+            let comparable = new Date(trentodata[i].time/1000000);
             console.log("Comparable: " + comparable);
             let i2;
 
-            for(i2 = i+1; i2 < rawdata.length; i2++) {
+            for(i2 = i+1; i2 < trentodata.length; i2++) {
                 console.log("I2: " + i2);
-                console.log("Compared to: " + new Date(rawdata[i2].timestamp));
-                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(rawdata[i2].timestamp))/1000/60);
+                console.log("Compared to: " + new Date(trentodata[i2].time/1000000));
+                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(trentodata[i2].time/1000000))/1000/60);
 
-                if(Math.abs(comparable - new Date(rawdata[i2].timestamp))/1000/60 < mins){
-                    let distance = calcDist(rawdata[i], rawdata[i2]);
+                if(Math.abs(comparable - new Date(trentodata[i2].time/1000000))/1000/60 < mins){
+                    let distance = calcDist(trentodata[i], trentodata[i2]);
                     console.log("Distance: " + distance);
                     console.log("-----");
 
                     if (distance < 5){
-                        risks.push( {"dist": distance, "person1": rawdata[i].tagId, "person2": rawdata[i2].tagId, "time": rawdata[i].timestamp} );
+                        risks.push( { "dist": distance, "person1": trentodata[i].tagID, "person2": trentodata[i2].tagID, "time": trentodata[i].time} );
                     }
                 }
             }
@@ -58,12 +69,37 @@ function Charts() {
         console.log("---------------------------------------------")
     }
 
-    const [earliest, setEarliest] = React.useState(new Date(Math.min(...rawdata.map(e => new Date(e.timestamp)))));
-    const [latest, setLatest] = React.useState(new Date(Math.max(...rawdata.map(e => new Date(e.timestamp)))));
+    //mahd. spread notaatio. Laskeminen for loopin sisällä. HashMap, hajautus algoritmi.
+    /* 
+    const [earliest, setEarliest] = React.useState(new Date(Math.min(...trentodata.map(e => new Date(e.time/1000000)))));
+    const [latest, setLatest] = React.useState(new Date(Math.max(...trentodata.map(e => new Date(e.time/1000000))))); 
+    */
+    const [earliest, setEarliest] = React.useState()
+    const [latest, setLatest] = React.useState()
+
+    useEffect( () => { minmaxTime() }, []);
+
+    const minmaxTime = () => {
+        let i;
+        let min = trentodata[0];
+        let max = trentodata[0];
+        for (i = 0; i < trentodata.length; i++){
+        
+            if (trentodata[i].time < min.time) {
+                min = trentodata[i]
+            }
+            else if (trentodata[i].time > max.time) {
+                max = trentodata[i]
+            } 
+        }
+        setEarliest(new Date(min.time/1000000));
+        setLatest(new Date(max.time/1000000));
+    }
+
 
     const filterData = () => {
-        let thisdata = rawdata.filter(rawdata => earliest <= new Date(rawdata.timestamp));
-        thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.timestamp));
+        let thisdata = trentodata.filter(trentodata => earliest <= new Date(trentodata.time/1000000));
+        thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.time/1000000));
         setReadyData(thisdata);
     }
 
@@ -99,7 +135,7 @@ function Charts() {
             }
         ]
     };
-
+//Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
     return (
         <div>
             {
@@ -116,7 +152,7 @@ function Charts() {
                                 <Typography>
                                     Earliest
                                 </Typography>
-                                <DateTimePicker
+                                 <DateTimePicker
                                     onChange={setEarliest}
                                     value={earliest}
                                 />
