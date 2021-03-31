@@ -16,9 +16,40 @@ function Charts() {
 
     const trentodata = DataJson;
 
-    let risks = []
+//{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
+//{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
+/*     const routeData = [
+        {tagID, risk, route:[{time,x,y}]}
+    ]
+ */
+//{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
+    const summary = []
 
-    const checkRisk = () => {
+    const testData = [
+        {
+            "name": "Location",
+            "time": 1614944496619605500,
+            "room": "lab",
+            "tagID": 2,
+            "x": 2.693613716183034,
+            "y": 3.5775570877129788
+          }
+    ]
+
+    //create an array {tagId: i, route: {time: t, x: z, y: z}}
+/*
+    const users = () => {
+        let i;
+        for(i = 0; i < trentodata.length-1; i++){
+            //if tagID not on list, push tagID into routeData.tagID && route info
+            //else if tagID on list, push route info
+            if (trentodata[i].tagID )
+    }}
+*/
+
+    let risks = []
+    //modify rist check to check through routeData
+        const checkRisk = () => {
         let i;
 
         //Starting the loop into the data.
@@ -45,7 +76,7 @@ function Charts() {
                         //console.log("Distance: " + distance);
                         //console.log("-----");
 
-                        //checking the, from the closest to the least close to account for risk from proximity.
+                        //checking the distance, from the closest to the least close to account for risk from proximity.
                         if (distance < 1){
                             risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "high"} );
                         } else if (distance < 2) {
