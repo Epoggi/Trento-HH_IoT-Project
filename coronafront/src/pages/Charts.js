@@ -10,7 +10,7 @@ import DataJson from '../data/csvjson.json'
 
 function Charts() {
   
-    const [mins, setMins] = React.useState(5);
+    const [secs, setMins] = React.useState(10);
 
     const [readyData, setReadyData] = React.useState([]);
 
@@ -51,24 +51,39 @@ function Charts() {
     //modify rist check to check through routeData
         const checkRisk = () => {
         let i;
-        for(i = 0; i < trentodata.length-1; i++){
-            console.log("I: " + i);
-            let comparable = new Date(trentodata[i].time/1000000);
-            console.log("Comparable: " + comparable);
+
+        //Starting the loop into the data.
+        for(i = 0; i < readyData.length-1; i++){
+            //console.log("I: " + i);
+            //Getting a date to compare to.
+            let comparable = new Date(readyData[i].time/1000000);
+            //console.log("Comparable: " + comparable);
+            //Initializing the integer being compared to
             let i2;
 
-            for(i2 = i+1; i2 < trentodata.length; i2++) {
-                console.log("I2: " + i2);
-                console.log("Compared to: " + new Date(trentodata[i2].time/1000000));
-                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(trentodata[i2].time/1000000))/1000/60);
+            //Looping i2 to be every object after i
+            for(i2 = i+1; i2 < readyData.length; i2++) {
 
-                if(Math.abs(comparable - new Date(trentodata[i2].time/1000000))/1000/60 < mins){
-                    let distance = calcDist(trentodata[i], trentodata[i2]);
-                    console.log("Distance: " + distance);
-                    console.log("-----");
+                // checking that i and i2 aren't the same person.
+                if(readyData[i].tagID != readyData[i2].tagID){
+                /*console.log("I2: " + i2);
+                console.log("Compared to: " + new Date(readyData[i2].time/1000000));
+                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
 
-                    if (distance < 5){
-                        risks.push( { "dist": distance, "person1": trentodata[i].tagID, "person2": trentodata[i2].tagID, "time": trentodata[i].time} );
+                    //comparing if the two datapoints are within a certain number of seconds.
+                    if(Math.abs(comparable - new Date(readyData[i2].time/1000000))/1000 < secs){
+                        let distance = calcDist(readyData[i], readyData[i2]);
+                        //console.log("Distance: " + distance);
+                        //console.log("-----");
+
+                        //checking the distance, from the closest to the least close to account for risk from proximity.
+                        if (distance < 1){
+                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "high"} );
+                        } else if (distance < 2) {
+                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "medium"} );
+                        } else if (distance < 4) {
+                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "low"} );
+                        }
                     }
                 }
             }
