@@ -16,7 +16,16 @@ function Charts() {
 
     const trentodata = DataJson;
 
-    const rawdata = [
+//{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
+//{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
+/*     const routeData = [
+        {tagID, risk, route:[{time,x,y}]}
+    ]
+ */
+//{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
+    const summary = []
+
+    const testData = [
         {
             "name": "Location",
             "time": 1614944496619605500,
@@ -24,24 +33,23 @@ function Charts() {
             "tagID": 2,
             "x": 2.693613716183034,
             "y": 3.5775570877129788
-          },
-        { x: 15, y: 30, timestamp: "2020-02-11T09:10:30.000Z", tagId: 1, roomid: 1, },
-        { x: 20, y: 17, timestamp: "2020-02-11T09:18:30.000Z", tagId: 2, roomid: 2, },
-        { x: 13, y: 34, timestamp: "2020-02-11T09:30:30.000Z", tagId: 3, roomid: 3, },
-        { x: 25, y: 10, timestamp: "2020-02-11T09:18:30.000Z", tagId: 4, roomid: 4, },
-        { x: 22, y: 19, timestamp: "2020-02-11T09:17:30.000Z", tagId: 6, roomid: 5, },
-        { x: 12, y: 37, timestamp: "2020-02-11T09:12:30.000Z", tagId: 7, roomid: 6, },
-        { x: 15, y: 30, timestamp: "2020-02-11T09:10:30.000Z", tagId: 5, roomid: 1, },
-        { x: 28, y: 13, timestamp: "2020-02-11T09:24:30.000Z", tagId: 8, roomid: 7, },
-        { x: 16, y: 38, timestamp: "2020-02-11T09:05:30.000Z", tagId: 9, roomid: 8, },
-        { x: 29, y: 15, timestamp: "2020-02-11T09:16:30.000Z", tagId: 10, roomid: 9, },
-        { x: 15, y: 31, timestamp: "2020-02-11T09:32:30.000Z", tagId: 11, roomid: 10, },
-        { x: 26, y: 13, timestamp: "2020-02-11T09:15:30.000Z", tagId: 12, roomid: 11, }
+          }
     ]
 
-    let risks = []
+    //create an array {tagId: i, route: {time: t, x: z, y: z}}
+/*
+    const users = () => {
+        let i;
+        for(i = 0; i < trentodata.length-1; i++){
+            //if tagID not on list, push tagID into routeData.tagID && route info
+            //else if tagID on list, push route info
+            if (trentodata[i].tagID )
+    }}
+*/
 
-    const checkRisk = () => {
+    let risks = []
+    //modify rist check to check through routeData
+        const checkRisk = () => {
         let i;
         for(i = 0; i < trentodata.length-1; i++){
             console.log("I: " + i);
