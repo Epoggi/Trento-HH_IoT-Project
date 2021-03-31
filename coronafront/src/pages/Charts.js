@@ -10,57 +10,49 @@ import DataJson from '../data/csvjson.json'
 
 function Charts() {
   
-    const [mins, setMins] = React.useState(5);
+    const [secs, setMins] = React.useState(10);
 
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
 
-    const rawdata = [
-        {
-            "name": "Location",
-            "time": 1614944496619605500,
-            "room": "lab",
-            "tagID": 2,
-            "x": 2.693613716183034,
-            "y": 3.5775570877129788
-          },
-        { x: 15, y: 30, timestamp: "2020-02-11T09:10:30.000Z", tagId: 1, roomid: 1, },
-        { x: 20, y: 17, timestamp: "2020-02-11T09:18:30.000Z", tagId: 2, roomid: 2, },
-        { x: 13, y: 34, timestamp: "2020-02-11T09:30:30.000Z", tagId: 3, roomid: 3, },
-        { x: 25, y: 10, timestamp: "2020-02-11T09:18:30.000Z", tagId: 4, roomid: 4, },
-        { x: 22, y: 19, timestamp: "2020-02-11T09:17:30.000Z", tagId: 6, roomid: 5, },
-        { x: 12, y: 37, timestamp: "2020-02-11T09:12:30.000Z", tagId: 7, roomid: 6, },
-        { x: 15, y: 30, timestamp: "2020-02-11T09:10:30.000Z", tagId: 5, roomid: 1, },
-        { x: 28, y: 13, timestamp: "2020-02-11T09:24:30.000Z", tagId: 8, roomid: 7, },
-        { x: 16, y: 38, timestamp: "2020-02-11T09:05:30.000Z", tagId: 9, roomid: 8, },
-        { x: 29, y: 15, timestamp: "2020-02-11T09:16:30.000Z", tagId: 10, roomid: 9, },
-        { x: 15, y: 31, timestamp: "2020-02-11T09:32:30.000Z", tagId: 11, roomid: 10, },
-        { x: 26, y: 13, timestamp: "2020-02-11T09:15:30.000Z", tagId: 12, roomid: 11, }
-    ]
-
     let risks = []
 
     const checkRisk = () => {
         let i;
-        for(i = 0; i < trentodata.length-1; i++){
-            console.log("I: " + i);
-            let comparable = new Date(trentodata[i].time/1000000);
-            console.log("Comparable: " + comparable);
+
+        //Starting the loop into the data.
+        for(i = 0; i < readyData.length-1; i++){
+            //console.log("I: " + i);
+            //Getting a date to compare to.
+            let comparable = new Date(readyData[i].time/1000000);
+            //console.log("Comparable: " + comparable);
+            //Initializing the integer being compared to
             let i2;
 
-            for(i2 = i+1; i2 < trentodata.length; i2++) {
-                console.log("I2: " + i2);
-                console.log("Compared to: " + new Date(trentodata[i2].time/1000000));
-                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(trentodata[i2].time/1000000))/1000/60);
+            //Looping i2 to be every object after i
+            for(i2 = i+1; i2 < readyData.length; i2++) {
 
-                if(Math.abs(comparable - new Date(trentodata[i2].time/1000000))/1000/60 < mins){
-                    let distance = calcDist(trentodata[i], trentodata[i2]);
-                    console.log("Distance: " + distance);
-                    console.log("-----");
+                // checking that i and i2 aren't the same person.
+                if(readyData[i].tagID != readyData[i2].tagID){
+                /*console.log("I2: " + i2);
+                console.log("Compared to: " + new Date(readyData[i2].time/1000000));
+                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
 
-                    if (distance < 5){
-                        risks.push( { "dist": distance, "person1": trentodata[i].tagID, "person2": trentodata[i2].tagID, "time": trentodata[i].time} );
+                    //comparing if the two datapoints are within a certain number of seconds.
+                    if(Math.abs(comparable - new Date(readyData[i2].time/1000000))/1000 < secs){
+                        let distance = calcDist(readyData[i], readyData[i2]);
+                        //console.log("Distance: " + distance);
+                        //console.log("-----");
+
+                        //checking the, from the closest to the least close to account for risk from proximity.
+                        if (distance < 1){
+                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "high"} );
+                        } else if (distance < 2) {
+                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "medium"} );
+                        } else if (distance < 4) {
+                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "low"} );
+                        }
                     }
                 }
             }
