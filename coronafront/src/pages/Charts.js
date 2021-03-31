@@ -34,9 +34,8 @@ function Charts() {
     const handleOpen = () => {
         setOpen(true);
     };
-
-
-    const [secs, setMins] = React.useState(10);
+  
+    const [secs, setMins] = React.useState(1);
 
     const [readyData, setReadyData] = React.useState([]);
 
@@ -76,6 +75,7 @@ function Charts() {
     let risks = []
     //modify rist check to check through routeData
     const checkRisk = () => {
+        risks = []
         let i;
 
         //Starting the loop into the data.
@@ -90,11 +90,11 @@ function Charts() {
             //Looping i2 to be every object after i
             for (i2 = i + 1; i2 < readyData.length; i2++) {
 
-                // checking that i and i2 aren't the same person.
-                if (readyData[i].tagID != readyData[i2].tagID) {
-                    /*console.log("I2: " + i2);
-                    console.log("Compared to: " + new Date(readyData[i2].time/1000000));
-                    console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
+                // checking that i and i2 aren't the same person and that they are in the same room.
+                if(readyData[i].tagID != readyData[i2].tagID && readyData[i].room === readyData[i2].room){
+                /*console.log("I2: " + i2);
+                console.log("Compared to: " + new Date(readyData[i2].time/1000000));
+                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
 
                     //comparing if the two datapoints are within a certain number of seconds.
                     if (Math.abs(comparable - new Date(readyData[i2].time / 1000000)) / 1000 < secs) {
@@ -115,6 +115,114 @@ function Charts() {
             }
         }
         console.log(risks);
+        console.log("---------------------------------------------")
+    }
+
+    let roomrisk = "";
+
+    const checkRoomRisk = (room) => {
+        let i;
+        roomrisk = "";
+
+        let lowrisk = 0;
+        let medrisk = 0;
+        let highrisk = 0;
+
+        //Starting the loop into the data.
+        for(i = 0; i < readyData.length-1; i++){
+
+            //Getting a date to compare to.
+            let comparable = new Date(readyData[i].time/1000000);
+
+            //Initializing the integer being compared to
+            let i2;
+            
+            //skipping cases where person 1 is not in the room we are checking
+            if(readyData[i].room === room) {
+
+                //Looping i2 to be every object after i
+                for(i2 = i+1; i2 < readyData.length; i2++) {
+
+                    //skipping cases where person 2 is not in the room we are checking
+                    if(readyData[i2].room === room) {
+
+                        // checking that i and i2 aren't the same person.
+                        if(readyData[i].tagID != readyData[i2].tagID){
+
+                            //comparing if the two datapoints are within a certain number of seconds.
+                            if(Math.abs(comparable - new Date(readyData[i2].time/1000000))/1000 < secs){
+
+                                // calculating the distance
+                                let distance = calcDist(readyData[i], readyData[i2]);
+                                //checking the distance, from the closest to the least close to account for risk from proximity.
+                                if (distance < 1){
+                                    ++highrisk;
+                                } else if (distance < 2) {
+                                    ++medrisk;
+                                } else if (distance < 4) {
+                                    ++lowrisk;
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //Counting how many risk encounters there were
+        const totalrisk = lowrisk+medrisk+highrisk;
+
+        roomrisk = "We had a total of " + totalrisk + " encounters. " + highrisk + " of them were high risk, " + medrisk + " of them were medium risk, and " + lowrisk + " of them were low risk."
+
+        
+        if (highrisk > (totalrisk/2)){
+            roomrisk = roomrisk + " The riskyness of the room is high, there's some spot where people like to get real close."
+        } else if (lowrisk > (totalrisk/2)){
+            roomrisk = roomrisk + " The riskyness of the room is quite low, people may like to be here, but not too close to each other."
+        }
+    }
+
+    let individualrisk = [];
+
+    //modify rist check to check through routeData
+    const checkOneRisk = (tagID) => {
+        let i;
+        individualrisk = [];
+
+        //Starting the loop into the data.
+        for(i = 0; i < readyData.length-1; i++){
+
+            //Getting a date to compare to.
+            let comparable = new Date(readyData[i].time/1000000);
+
+            //Initializing the integer being compared to
+            let i2;
+
+            //Looping i2 to be every object after i
+            for(i2 = i+1; i2 < readyData.length; i2++) {
+
+                // checking that i is the person we're checking, that i and i2 aren't the same person, and that they are in the same room.
+                if(readyData[i].tagID === tagID && readyData[i].tagID != readyData[i2].tagID && readyData[i].room === readyData[i2].room){
+
+                    //comparing if the two datapoints are within a certain number of seconds.
+                    if(Math.abs(comparable - new Date(readyData[i2].time/1000000))/1000 < secs){
+                        let distance = calcDist(readyData[i], readyData[i2]);
+
+                        //checking the distance, from the closest to the least close to account for risk from proximity.
+                        if (distance < 1){
+                            individualrisk.push( { "dist": distance, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "high"} );
+                        } else if (distance < 2) {
+                            individualrisk.push( { "dist": distance, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "medium"} );
+                        } else if (distance < 4) {
+                            individualrisk.push( { "dist": distance, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "low"} );
+                        }
+                    }
+                }
+            }
+        }
+        console.log(individualrisk);
         console.log("---------------------------------------------")
     }
 
