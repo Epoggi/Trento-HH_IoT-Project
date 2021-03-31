@@ -7,22 +7,48 @@ import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
 import DataJson from '../data/csvjson.json'
 
+//drawer komponentit
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
+//Summary list komponentti
+import List from '@material-ui/core/List';
+
+
 
 function Charts() {
-  
+
+    //drawer komponentit 
+    const [drawer, setDrawer] = React.useState(0)
+    // 0 = general summary, 1 personal summary, 2 room summary
+    const [open, setOpen] = React.useState(false);
+
+    const handleChange = (event) => {
+        setDrawer(event.target.value);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+
     const [secs, setMins] = React.useState(10);
 
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
 
-//{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
-//{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
-/*     const routeData = [
-        {tagID, risk, route:[{time,x,y}]}
-    ]
- */
-//{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
+    //{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
+    //{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
+    /*     const routeData = [
+            {tagID, risk, route:[{time,x,y}]}
+        ]
+     */
+    //{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
     const summary = []
 
     const testData = [
@@ -33,56 +59,56 @@ function Charts() {
             "tagID": 2,
             "x": 2.693613716183034,
             "y": 3.5775570877129788
-          }
+        }
     ]
 
     //create an array {tagId: i, route: {time: t, x: z, y: z}}
-/*
-    const users = () => {
-        let i;
-        for(i = 0; i < trentodata.length-1; i++){
-            //if tagID not on list, push tagID into routeData.tagID && route info
-            //else if tagID on list, push route info
-            if (trentodata[i].tagID )
-    }}
-*/
+    /*
+        const users = () => {
+            let i;
+            for(i = 0; i < trentodata.length-1; i++){
+                //if tagID not on list, push tagID into routeData.tagID && route info
+                //else if tagID on list, push route info
+                if (trentodata[i].tagID )
+        }}
+    */
 
     let risks = []
     //modify rist check to check through routeData
-        const checkRisk = () => {
+    const checkRisk = () => {
         let i;
 
         //Starting the loop into the data.
-        for(i = 0; i < readyData.length-1; i++){
+        for (i = 0; i < readyData.length - 1; i++) {
             //console.log("I: " + i);
             //Getting a date to compare to.
-            let comparable = new Date(readyData[i].time/1000000);
+            let comparable = new Date(readyData[i].time / 1000000);
             //console.log("Comparable: " + comparable);
             //Initializing the integer being compared to
             let i2;
 
             //Looping i2 to be every object after i
-            for(i2 = i+1; i2 < readyData.length; i2++) {
+            for (i2 = i + 1; i2 < readyData.length; i2++) {
 
                 // checking that i and i2 aren't the same person.
-                if(readyData[i].tagID != readyData[i2].tagID){
-                /*console.log("I2: " + i2);
-                console.log("Compared to: " + new Date(readyData[i2].time/1000000));
-                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
+                if (readyData[i].tagID != readyData[i2].tagID) {
+                    /*console.log("I2: " + i2);
+                    console.log("Compared to: " + new Date(readyData[i2].time/1000000));
+                    console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
 
                     //comparing if the two datapoints are within a certain number of seconds.
-                    if(Math.abs(comparable - new Date(readyData[i2].time/1000000))/1000 < secs){
+                    if (Math.abs(comparable - new Date(readyData[i2].time / 1000000)) / 1000 < secs) {
                         let distance = calcDist(readyData[i], readyData[i2]);
                         //console.log("Distance: " + distance);
                         //console.log("-----");
 
                         //checking the distance, from the closest to the least close to account for risk from proximity.
-                        if (distance < 1){
-                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "high"} );
+                        if (distance < 1) {
+                            risks.push({ "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time / 1000000), "risk": "high" });
                         } else if (distance < 2) {
-                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "medium"} );
+                            risks.push({ "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time / 1000000), "risk": "medium" });
                         } else if (distance < 4) {
-                            risks.push( { "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time/1000000), "risk": "low"} );
+                            risks.push({ "dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time / 1000000), "risk": "low" });
                         }
                     }
                 }
@@ -100,37 +126,37 @@ function Charts() {
     const [earliest, setEarliest] = React.useState()
     const [latest, setLatest] = React.useState()
 
-    useEffect( () => { minmaxTime() }, []);
+    useEffect(() => { minmaxTime() }, []);
 
     const minmaxTime = () => {
         let i;
         let min = trentodata[0];
         let max = trentodata[0];
-        for (i = 0; i < trentodata.length; i++){
-        
+        for (i = 0; i < trentodata.length; i++) {
+
             if (trentodata[i].time < min.time) {
                 min = trentodata[i]
             }
             else if (trentodata[i].time > max.time) {
                 max = trentodata[i]
-            } 
+            }
         }
-        setEarliest(new Date(min.time/1000000));
-        setLatest(new Date(max.time/1000000));
+        setEarliest(new Date(min.time / 1000000));
+        setLatest(new Date(max.time / 1000000));
     }
 
 
     const filterData = () => {
-        let thisdata = trentodata.filter(trentodata => earliest <= new Date(trentodata.time/1000000));
-        thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.time/1000000));
+        let thisdata = trentodata.filter(trentodata => earliest <= new Date(trentodata.time / 1000000));
+        thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.time / 1000000));
         setReadyData(thisdata);
     }
 
     const calcDist = (posit1, posit2) => {
-        let dist1 = Math.pow((posit1.x - posit2.x),2)
-        let dist2 = Math.pow((posit1.y - posit2.y),2)
+        let dist1 = Math.pow((posit1.x - posit2.x), 2)
+        let dist2 = Math.pow((posit1.y - posit2.y), 2)
 
-        return Math.sqrt(Math.abs(dist1+dist2))
+        return Math.sqrt(Math.abs(dist1 + dist2))
     }
 
     const data = {
@@ -158,24 +184,33 @@ function Charts() {
             }
         ]
     };
-//Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
+/* 
+    const lists = { 
+        return (
+                
+                Listitem value.drawer
+                )
+            } 
+    
+*/
+    //Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
     return (
         <div>
             {
                 <div>
                     <Grid container spacing={1} justify="center">
-                        <Grid container item xs={12} spacing={3} justify="center">
+                        <Grid container item xs={12} spacing={3} justify="center" style={{ marginRight: 100 }}>
                             <Grid item xs={8}>
                                 <h2>Charts</h2>
                                 <Scatter data={data} />
                             </Grid>
                         </Grid>
-                        <Grid container item xs={12} spacing={3} direction="row" justify="center" alignItems="center">
+                        <Grid container item xs={12} spacing={3} direction="row" justify="center" alignItems="center" style={{ margin: 5 }}>
                             <Grid item xs={4} justify="center" direction="column">
                                 <Typography>
                                     Earliest
                                 </Typography>
-                                 <DateTimePicker
+                                <DateTimePicker
                                     onChange={setEarliest}
                                     value={earliest}
                                 />
@@ -190,19 +225,48 @@ function Charts() {
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="flex-end">
-                            <Grid item xs={4}>
-                                <Button onClick={filterData} color="primary" variant="contained">
-                                    filter
-                                </Button>
+                        <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="center">
+                            <Grid item xs={6} style={{ backgroundColor: "white" }}>
+                                <h3>Summary</h3>
+                                <Grid container item xs={10} spacing={2} direction="row" justify="flex-start" alignItems="center">
+                                <Grid item xs={2}>
+                                <Select
+                                    labelId="open-select-label"
+                                    id="open-select"
+                                    open={open}
+                                    onClose={handleClose}
+                                    onOpen={handleOpen}
+                                    value={drawer}
+                                    onChange={handleChange}
+                                >
+                                    
+                                    <MenuItem value={0}>General</MenuItem>
+                                    <MenuItem value={1}>Person</MenuItem>
+                                    <MenuItem value={2}>Room</MenuItem>
+                                </Select></Grid>
+                                <Grid item xs={2}><Typography>summary</Typography></Grid>
+                                
+                                </Grid>
+                                <List>
+                                    {/* Create list here.. */}
+                                </List>
                             </Grid>
-                        </Grid>
-                        <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="flex-end">
-                            <form>
-                                <Button onClick={checkRisk} color="primary" variant="contained">
-                                    get risks
+
+                            <Grid container item xs={4} spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+                                <Grid item xs={4}>
+                                    <Button onClick={filterData} color="primary" variant="contained">
+                                        filter
                                 </Button>
-                            </form>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <form>
+                                        <Button onClick={checkRisk} color="primary" variant="contained">
+                                            get risks
+                                    </Button>
+                                    </form>
+                                </Grid>
+                            </Grid>
+
                         </Grid>
                     </Grid>
                 </div>
