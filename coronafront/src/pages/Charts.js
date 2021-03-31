@@ -162,7 +162,7 @@ function Charts() {
     let individualrisk = [];
 
     //modify rist check to check through routeData
-    const checkRisk = (tagID) => {
+    const checkOneRisk = (tagID) => {
         let i;
         individualrisk = [];
 
