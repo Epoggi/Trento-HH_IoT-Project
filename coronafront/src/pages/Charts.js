@@ -13,6 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 //Summary list komponentti
 import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 
@@ -40,7 +42,29 @@ function Charts() {
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
+    /*//filter rawdata by minutes */
+    useEffect(() => { filterDataByMinutes() }, []);
+    
+    const filterDataByMinutes = () => {
+        //filter list to provide datapoints only every 1 minute, scrap else
+        let rawdata = DataJson
+        let list = [];
+        
+        for (let i = 0; i < rawdata.length - 1; i++) {
+            //search for the minutes
+            console.log(((rawdata[i].time / 1000000)/1000) % 60)
 
+            if (((rawdata[i].time / 1000000)/1000) % 60 == 0) {
+                //add rawdata with a remainder of x to the list
+                list.push(rawdata[i])
+
+                console.log(rawdata[i])
+            }
+        }
+        return list
+    }
+    const timefiltereddata = filterDataByMinutes(DataJson)
+    
     //{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
     //{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
     /*     const routeData = [
@@ -295,15 +319,37 @@ function Charts() {
             }
         ]
     };
-/* 
-    const lists = { 
+//material ui demo ->
+//pondering how to add risks list into this..
+    function generate(element) {
+        return [0,1,2].map((value) =>
+          React.cloneElement(element, {
+            key: value,
+          }),
+        );
+      }
+
+    const [dense, setDense] = React.useState(false);
+    const [secondary, setSecondary] = React.useState(false);
+
+    const renderlist = () => {
         return (
-                
-                Listitem value.drawer
-                )
-            } 
+        <div>
+            <List dense={dense}>
+              {generate(
+                <ListItem>
+                  <ListItemText
+                    primary="Single-line item"
+                    secondary={secondary ? 'Secondary text' : null}
+                  />
+                </ListItem>,
+              )}
+            </List>
+        </div>
+        )} 
     
-*/
+//material ui demo end.
+
     //Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
     return (
         <div>
@@ -338,7 +384,7 @@ function Charts() {
                         </Grid>
                         <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="center">
                             <Grid item xs={6} style={{ backgroundColor: "white" }}>
-                                <h3>Summary</h3>
+                                <h3>Summaries</h3>
                                 <Grid container item xs={10} spacing={2} direction="row" justify="flex-start" alignItems="center">
                                 <Grid item xs={2}>
                                 <Select
@@ -358,9 +404,7 @@ function Charts() {
                                 <Grid item xs={2}><Typography>summary</Typography></Grid>
                                 
                                 </Grid>
-                                <List>
-                                    {/* Create list here.. */}
-                                </List>
+                                {renderlist()}
                             </Grid>
 
                             <Grid container item xs={4} spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
