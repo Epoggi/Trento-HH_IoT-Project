@@ -13,6 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 //Summary list komponentti
 import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 
@@ -292,15 +294,37 @@ function Charts() {
             }
         ]
     };
-/* 
-    const lists = { 
+//material ui demo ->
+//pondering how to add risks list into this..
+    function generate(element) {
+        return [0, 1, 2].map((value) =>
+          React.cloneElement(element, {
+            key: value,
+          }),
+        );
+      }
+
+    const [dense, setDense] = React.useState(false);
+    const [secondary, setSecondary] = React.useState(false);
+
+    const renderlist = () => {
         return (
-                
-                Listitem value.drawer
-                )
-            } 
+        <div>
+            <List dense={dense}>
+              {generate(
+                <ListItem>
+                  <ListItemText
+                    primary="Single-line item"
+                    secondary={secondary ? 'Secondary text' : null}
+                  />
+                </ListItem>,
+              )}
+            </List>
+        </div>
+        )} 
     
-*/
+//material ui demo end.
+
     //Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
     return (
         <div>
@@ -335,7 +359,7 @@ function Charts() {
                         </Grid>
                         <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="center">
                             <Grid item xs={6} style={{ backgroundColor: "white" }}>
-                                <h3>Summary</h3>
+                                <h3>Summaries</h3>
                                 <Grid container item xs={10} spacing={2} direction="row" justify="flex-start" alignItems="center">
                                 <Grid item xs={2}>
                                 <Select
@@ -355,9 +379,7 @@ function Charts() {
                                 <Grid item xs={2}><Typography>summary</Typography></Grid>
                                 
                                 </Grid>
-                                <List>
-                                    {/* Create list here.. */}
-                                </List>
+                                {renderlist()}
                             </Grid>
 
                             <Grid container item xs={4} spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
