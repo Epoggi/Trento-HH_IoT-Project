@@ -80,27 +80,30 @@ function Charts() {
 
         //Starting the loop into the data.
         for (i = 0; i < readyData.length - 1; i++) {
-            //console.log("I: " + i);
+            console.log("I: " + i);
             //Getting a date to compare to.
             let comparable = new Date(readyData[i].time / 1000000);
-            //console.log("Comparable: " + comparable);
+            console.log("Comparable: " + comparable);
             //Initializing the integer being compared to
             let i2;
+            
 
             //Looping i2 to be every object after i
             for (i2 = i + 1; i2 < readyData.length; i2++) {
+                console.log("I2: " + i2);
+                console.log("Duplicate: " + readyData[i].tagID != readyData[i2].tagID);
+                console.log("Same room: " + readyData[i].room === readyData[i2].room);
 
                 // checking that i and i2 aren't the same person and that they are in the same room.
                 if(readyData[i].tagID != readyData[i2].tagID && readyData[i].room === readyData[i2].room){
-                /*console.log("I2: " + i2);
                 console.log("Compared to: " + new Date(readyData[i2].time/1000000));
-                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
+                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);
 
                     //comparing if the two datapoints are within a certain number of seconds.
                     if (Math.abs(comparable - new Date(readyData[i2].time / 1000000)) / 1000 < secs) {
                         let distance = calcDist(readyData[i], readyData[i2]);
-                        //console.log("Distance: " + distance);
-                        //console.log("-----");
+                        console.log("Distance: " + distance);
+                        console.log("-----");
 
                         //checking the distance, from the closest to the least close to account for risk from proximity.
                         if (distance < 1) {
