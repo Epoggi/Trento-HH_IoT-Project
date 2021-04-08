@@ -42,7 +42,29 @@ function Charts() {
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
+    /*//filter rawdata by minutes */
+    useEffect(() => { filterDataByMinutes() }, []);
+    
+    const filterDataByMinutes = () => {
+        //filter list to provide datapoints only every 1 minute, scrap else
+        let rawdata = DataJson
+        let list = [];
+        
+        for (let i = 0; i < rawdata.length - 1; i++) {
+            //search for the minutes
+            console.log(((rawdata[i].time / 1000000)/1000) % 60)
 
+            if (((rawdata[i].time / 1000000)/1000) % 60 == 0) {
+                //add rawdata with a remainder of x to the list
+                list.push(rawdata[i])
+
+                console.log(rawdata[i])
+            }
+        }
+        return list
+    }
+    const timefiltereddata = filterDataByMinutes(DataJson)
+    
     //{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
     //{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
     /*     const routeData = [
@@ -82,6 +104,7 @@ function Charts() {
 
         //Starting the loop into the data.
         for (i = 0; i < readyData.length - 1; i++) {
+            
             //console.log("I: " + i);
             //Getting a date to compare to.
             let comparable = new Date(readyData[i].time / 1000000);
@@ -91,11 +114,13 @@ function Charts() {
 
             //Looping i2 to be every object after i
             for (i2 = i + 1; i2 < readyData.length; i2++) {
-
+              
                 // checking that i and i2 aren't the same person and that they are in the same room.
                 if(readyData[i].tagID != readyData[i2].tagID && readyData[i].room === readyData[i2].room){
-                /*console.log("I2: " + i2);
-                console.log("Compared to: " + new Date(readyData[i2].time/1000000));
+                    
+                    
+                    /*console.log("I2: " + i2);
+                    console.log("Compared to: " + new Date(readyData[i2].time/1000000));
                 console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);*/
 
                     //comparing if the two datapoints are within a certain number of seconds.
@@ -297,7 +322,7 @@ function Charts() {
 //material ui demo ->
 //pondering how to add risks list into this..
     function generate(element) {
-        return [0, 1, 2].map((value) =>
+        return [0,1,2].map((value) =>
           React.cloneElement(element, {
             key: value,
           }),
