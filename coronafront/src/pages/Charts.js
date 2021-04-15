@@ -43,9 +43,9 @@ function Charts() {
 
     const trentodata = DataJson;
     /*//filter rawdata by minutes */
-    useEffect(() => { filterDataByMinutes() }, []);
+    //useEffect(() => { filterDataByMinutes() }, []);
     
-    const filterDataByMinutes = () => {
+    /*const filterDataByMinutes = () => {
         //filter list to provide datapoints only every 1 minute, scrap else
         let rawdata = DataJson
         let list = [];
@@ -63,7 +63,7 @@ function Charts() {
         }
         return list
     }
-    const timefiltereddata = filterDataByMinutes(DataJson)
+    const timefiltereddata = filterDataByMinutes(DataJson)*/
     
     //{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
     //{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
@@ -114,12 +114,15 @@ function Charts() {
 
             //Looping i2 to be every object after i
             for (i2 = i + 1; i2 < readyData.length; i2++) {
-                console.log("I2: " + i2);
-                console.log("Duplicate: " + readyData[i].tagID != readyData[i2].tagID);
-                console.log("Same room: " + readyData[i].room === readyData[i2].room);
+                //console.log("I2: " + i2);
+                //console.log("Duplicate: " + readyData[i].tagID != readyData[i2].tagID);
+                //console.log("Room1:" + new String(readyData[i].room).normalize() + " Room2:" + new String(readyData[i2].room).normalize());
+                console.log("Same room: " + readyData[i].room == new String(readyData[i2].room).normalize());
+                console.log("Type of room1:" + typeof readyData[i].room)
+                console.log("Type of room2:" + typeof readyData[i2].room)
 
                 // checking that i and i2 aren't the same person and that they are in the same room.
-                if(readyData[i].tagID != readyData[i2].tagID && readyData[i].room === readyData[i2].room){
+                if(readyData[i].tagID != readyData[i2].tagID && readyData[i].room == readyData[i2].room){
                 console.log("Compared to: " + new Date(readyData[i2].time/1000000));
                 console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(readyData[i2].time/1000000))/1000);
 
