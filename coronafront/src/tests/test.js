@@ -39,7 +39,10 @@ describe('Charts.js function tests', function(){
 
         assert.deepStrictEqual(result, [
           {
+            //console.log(result)
             //expected risk results
+            //"dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time / 1000000), "risk": "high" });
+            dist: x, person1: 1, person2: 2, time: 1614944496619605500, risk: "high"
           }
         ])
       });
