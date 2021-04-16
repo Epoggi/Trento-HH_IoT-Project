@@ -21,9 +21,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nodemon --exec babel-node ./src/index.js",
     "build": "react-scripts build",
-    "test": "mocha './src/tests/*.js'",
+    "test": "mocha './src/tests/*.js' --require @babel/register",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,8 +45,16 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/register": "^7.13.14",
+    "chai": "^4.3.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mocha": "^8.3.2"
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7"
   }
 }
