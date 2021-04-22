@@ -6,6 +6,7 @@ import { Scatter } from 'react-chartjs-2';
 import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
 import DataJson from '../data/csvjson.json'
+import * as Functions from './Functions'
 
 //drawer komponentit
 import Select from '@material-ui/core/Select';
@@ -38,6 +39,8 @@ function Charts() {
     };
   
     const [secs, setMins] = React.useState(1);
+
+    Functions.
 
     const [readyData, setReadyData] = React.useState([]);
 
