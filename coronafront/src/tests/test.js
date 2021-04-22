@@ -1,6 +1,7 @@
 var assert = require('assert');
 //get functions from Charts.js
-const {Charts} = require('../pages/Charts.js')
+
+import * as Functions from './Functions'
 
 describe('Array', function() {
   describe('#indexOf()', function() {
@@ -10,7 +11,7 @@ describe('Array', function() {
   });
 });
 
-describe('Charts.js function tests', function(){
+describe('Functions.js function tests', function(){
   describe('Check Risks functions', function(){
     describe('Check all risks', function(){
       it('testing..', function(){
@@ -35,7 +36,7 @@ describe('Charts.js function tests', function(){
 
   ]
 
-        let result = Charts.checkRisk(testData)
+        let result = Functions.checkRisk(testData)
 
         assert.deepStrictEqual(result, [
           {
