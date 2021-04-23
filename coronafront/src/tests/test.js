@@ -1,7 +1,7 @@
 var assert = require('assert');
 //get functions from Charts.js
 
-import * as Functions from './Functions'
+import * as Functions from '../pages/Functions'
 
 describe('Array', function() {
   describe('#indexOf()', function() {
@@ -22,16 +22,16 @@ describe('Functions.js function tests', function(){
           "time": 1614944496619605500,
           "room": "lab",
           "tagID": 1,
-          "x": 2.693613716183034,
-          "y": 3.5775570877129788
+          "x": 2,
+          "y": 3
       },
       {
         "name": "Location",
         "time": 1614944496619605500,
         "room": "lab",
         "tagID": 2,
-        "x": 2.693613716183034,
-        "y": 3.5775570877129788
+        "x": 2,
+        "y": 3
     },
 
   ]
@@ -43,7 +43,7 @@ describe('Functions.js function tests', function(){
             //console.log(result)
             //expected risk results
             //"dist": distance, "person1": readyData[i].tagID, "person2": readyData[i2].tagID, "time": new Date(readyData[i].time / 1000000), "risk": "high" });
-            dist: x, person1: 1, person2: 2, time: 1614944496619605500, risk: "high"
+            dist: 0, person1: 1, person2: 2, time: new Date(1614944496619605500 / 1000000), risk: "high"
           }
         ])
       });
