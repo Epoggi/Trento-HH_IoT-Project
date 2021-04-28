@@ -1,20 +1,36 @@
+
 //filter rawdata by minutes
 export const trimData = (rawdata) => {
     
         //filter list to provide datapoints only every 1 minute, scrap else
-        
+        const minTime = (data) => {
+            let i;
+            let min = data[0];
+            for (i = 0; i < data.length; i++) {
+    
+                if (data[i].time < min.time) {
+                    min = data[i]
+                }
+            }
+        return min
+        }
+
+        let list = [];
+        list.push(minTime(rawdata))
+        //console.log("First date: " + new Date(list[list.length-1].time/1000000))
+        //console.log("First minute: " + new Date(list[list.length-1].time/1000000).getMinutes())
+
         for (let i = 0; i < rawdata.length - 1; i++) {
             //search for the minutes
-
-            //if rawdata[i+1] < rawdata[i] + minuutti = rawdata[i+1].splice()
-
-            if (rawdata[i+1].time/1000000/1000 < (rawdata[i].time/1000000/1000) + 60 ) {
-                console.log(rawdata[i+1].time/1000000/1000 < (rawdata[i].time/1000000/1000) + 60)
-                rawdata.splice(i+1,1)
-            }
-        }
-        return rawdata
+           // console.log("Compare minute: " + new Date(rawdata[i].time/1000000).getMinutes())
+            
+            if (new Date(list[list.length-1].time/1000000).getMinutes() < new Date(rawdata[i].time/1000000).getMinutes() || new Date(list[list.length-1].time/1000000).getHours() < new Date(rawdata[i].time/1000000).getHours() ){
+                list.push(rawdata[i])
+                //console.log("New pushed date: " + new Date(rawdata[i].time/1000000))
+            }  
     }
+    return list
+}
 
 //function const riskSecs = (secs = 1) => { return{ checkRisk, checkRoomRisk, check}}
 //modify risk check to check through routeData
@@ -24,10 +40,10 @@ export const checkRisk = (data, secs = 1) => {
 
     //Starting the loop into the data.
     for (i = 0; i < data.length - 1; i++) {
-        console.log("I: " + i);
+        //console.log("I: " + i);
         //Getting a date to compare to.
         let comparable = new Date(data[i].time / 1000000);
-        console.log("Comparable: " + comparable);
+        //console.log("Comparable: " + comparable);
         //Initializing the integer being compared to
         let i2;
 
@@ -43,14 +59,14 @@ export const checkRisk = (data, secs = 1) => {
 
             // checking that i and i2 aren't the same person, checking for same room disabled because strings are always not equal.
             if (data[i].tagID != data[i2].tagID /* && data[i].room == data[i2].room */) {
-                console.log("Compared to: " + new Date(data[i2].time / 1000000));
-                console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(data[i2].time / 1000000)) / 1000);
+               // console.log("Compared to: " + new Date(data[i2].time / 1000000));
+               // console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(data[i2].time / 1000000)) / 1000);
 
                 //comparing if the two datapoints are within a certain number of seconds.
                 if (Math.abs(comparable - new Date(data[i2].time / 1000000)) / 1000 < secs) {
                     let distance = calcDist(data[i], data[i2]);
-                    console.log("Distance: " + distance);
-                    console.log("-----");
+                  //  console.log("Distance: " + distance);
+                  //  console.log("-----");
 
                     //checking the distance, from the closest to the least close to account for risk from proximity.
                     if (distance < 1) {

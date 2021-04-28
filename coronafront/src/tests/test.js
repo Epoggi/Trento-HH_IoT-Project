@@ -31,6 +31,8 @@ describe('Functions.js function tests', function(){
 
   let result = Functions.trimData(testData)
 
+  console.log("Result: " + result)
+
   assert.deepStrictEqual(result, [
     {
       name: "Location",
@@ -41,13 +43,24 @@ describe('Functions.js function tests', function(){
       y: 3
   }])
   })
+
   it('trimming with rawdata(100)', function(){
     let rawdata = DataJson
-    rawdata.length = 100
-
+   /*  for (let i = 0; i < rawdata.length; i++){
+      console.log("Date: " + new Date(rawdata[i].time / 1000000))
+    } */
+  
+    //rawdata.length = 10000
+  /*   rawdata = rawdata.sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return new Date(b.time/1000000) - new Date(a.time/1000000);
+    });
+ */
     let result = Functions.trimData(rawdata)
+    console.log("Result: " + result)
     for (let i = 0; i < result.length; i++){
-      console.log(new Date(result[i].time / 1000000))
+      console.log("Date: " + new Date(result[i].time / 1000000))
     }
   })
   describe('Check Risks functions', function(){
