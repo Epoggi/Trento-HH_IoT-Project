@@ -44,6 +44,8 @@ function Charts() {
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
+    //lets limit for now
+    trentodata.lenght = 1000;
   
     //{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
     const summary = []
