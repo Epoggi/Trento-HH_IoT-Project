@@ -1,3 +1,21 @@
+//filter rawdata by minutes
+export const trimData = (rawdata) => {
+    
+        //filter list to provide datapoints only every 1 minute, scrap else
+        
+        for (let i = 0; i < rawdata.length - 1; i++) {
+            //search for the minutes
+
+            //if rawdata[i+1] < rawdata[i] + minuutti = rawdata[i+1].splice()
+
+            if (rawdata[i+1].time/1000000/1000 < (rawdata[i].time/1000000/1000) + 60 ) {
+                console.log(rawdata[i+1].time/1000000/1000 < (rawdata[i].time/1000000/1000) + 60)
+                rawdata.splice(i+1,1)
+            }
+        }
+        return rawdata
+    }
+
 //function const riskSecs = (secs = 1) => { return{ checkRisk, checkRoomRisk, check}}
 //modify risk check to check through routeData
 export const checkRisk = (data, secs = 1) => {
@@ -19,12 +37,12 @@ export const checkRisk = (data, secs = 1) => {
             //console.log("I2: " + i2);
             //console.log("Duplicate: " + data[i].tagID != data[i2].tagID);
             //console.log("Room1:" + new String(data[i].room).normalize() + " Room2:" + new String(data[i2].room).normalize());
-            console.log("Same room: " + new String(data[i].room).normalize().trim() == new String(data[i2].room).normalize().trim());
+           /*  console.log("Same room: " + new String(data[i].room).normalize().trim().valueOf() == new String(data[i].room).normalize().trim().valueOf());
             console.log("Type of room1:" + typeof data[i].room + ", Room: " + data[i].room)
-            console.log("Type of room2:" + typeof data[i2].room + ", Room: " + data[i].room)
+            console.log("Type of room2:" + typeof data[i2].room + ", Room: " + data[i].room) */
 
-            // checking that i and i2 aren't the same person and that they are in the same room.
-            if (data[i].tagID != data[i2].tagID && data[i].room == data[i2].room) {
+            // checking that i and i2 aren't the same person, checking for same room disabled because strings are always not equal.
+            if (data[i].tagID != data[i2].tagID /* && data[i].room == data[i2].room */) {
                 console.log("Compared to: " + new Date(data[i2].time / 1000000));
                 console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(data[i2].time / 1000000)) / 1000);
 

@@ -38,55 +38,15 @@ function Charts() {
         setOpen(true);
     };
   
-    const [secs, setMins] = React.useState(1);
 
     Functions.
 
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
-    /*//filter rawdata by minutes */
-    //useEffect(() => { filterDataByMinutes() }, []);
-    
-    /*const filterDataByMinutes = () => {
-        //filter list to provide datapoints only every 1 minute, scrap else
-        let rawdata = DataJson
-        let list = [];
-        
-        for (let i = 0; i < rawdata.length - 1; i++) {
-            //search for the minutes
-            console.log(((rawdata[i].time / 1000000)/1000) % 60)
-
-            if (((rawdata[i].time / 1000000)/1000) % 60 == 0) {
-                //add rawdata with a remainder of x to the list
-                list.push(rawdata[i])
-
-                console.log(rawdata[i])
-            }
-        }
-        return list
-    }
-    const timefiltereddata = filterDataByMinutes(DataJson)*/
-    
-    //{tagId: 0, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]},
-    //{tagId: 1, risk: 0, route: [{time: 0, x:0, y:0},{time:1, x:1, y:1}]}
-    /*     const routeData = [
-            {tagID, risk, route:[{time,x,y}]}
-        ]
-     */
+  
     //{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
     const summary = []
-
-    const testData = [
-        {
-            "name": "Location",
-            "time": 1614944496619605500,
-            "room": "lab",
-            "tagID": 2,
-            "x": 2.693613716183034,
-            "y": 3.5775570877129788
-        }
-    ]
 
     //create an array {tagId: i, route: {time: t, x: z, y: z}}
     /*

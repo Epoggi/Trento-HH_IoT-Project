@@ -1,17 +1,55 @@
 var assert = require('assert');
-//get functions from Charts.js
+
+import DataJson from '../data/csvjson.json'
 
 import * as Functions from '../pages/Functions'
 
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
-});
+
+
 
 describe('Functions.js function tests', function(){
+  it('Data trimming', function(){
+    const testData = [
+      {
+          "name": "Location",
+          "time": 1614944496619605500,
+          "room": "lab",
+          "tagID": 1,
+          "x": 2,
+          "y": 3
+      },
+      {
+        "name": "Location",
+        "time": 1614944496619605500,
+        "room": "lab",
+        "tagID": 2,
+        "x": 2,
+        "y": 3
+    },
+
+  ]
+
+  let result = Functions.trimData(testData)
+
+  assert.deepStrictEqual(result, [
+    {
+      name: "Location",
+      time: 1614944496619605500,
+      room: "lab",
+      tagID: 1,
+      x: 2,
+      y: 3
+  }])
+  })
+  it('trimming with rawdata(100)', function(){
+    let rawdata = DataJson
+    rawdata.length = 100
+
+    let result = Functions.trimData(rawdata)
+    for (let i = 0; i < result.length; i++){
+      console.log(new Date(result[i].time / 1000000))
+    }
+  })
   describe('Check Risks functions', function(){
     describe('Check all risks', function(){
       it('testing..', function(){
