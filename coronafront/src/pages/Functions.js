@@ -1,9 +1,6 @@
-import React from 'react';
-
-const [secs, setSecs] = React.useState(1);
-
+//function const riskSecs = (secs = 1) => { return{ checkRisk, checkRoomRisk, check}}
 //modify risk check to check through routeData
-export const checkRisk = (data) => {
+export const checkRisk = (data, secs = 1) => {
     let risks = [];
     let i;
 
@@ -22,9 +19,9 @@ export const checkRisk = (data) => {
             //console.log("I2: " + i2);
             //console.log("Duplicate: " + data[i].tagID != data[i2].tagID);
             //console.log("Room1:" + new String(data[i].room).normalize() + " Room2:" + new String(data[i2].room).normalize());
-            console.log("Same room: " + data[i].room == new String(data[i2].room).normalize());
-            console.log("Type of room1:" + typeof data[i].room)
-            console.log("Type of room2:" + typeof data[i2].room)
+            console.log("Same room: " + new String(data[i].room).normalize().trim() == new String(data[i2].room).normalize().trim());
+            console.log("Type of room1:" + typeof data[i].room + ", Room: " + data[i].room)
+            console.log("Type of room2:" + typeof data[i2].room + ", Room: " + data[i].room)
 
             // checking that i and i2 aren't the same person and that they are in the same room.
             if (data[i].tagID != data[i2].tagID && data[i].room == data[i2].room) {
@@ -53,7 +50,7 @@ export const checkRisk = (data) => {
     return risks;
 }
 
-export const checkRoomRisk = (data, room) => {
+export const checkRoomRisk = (data, room, secs = 1) => {
     let i;
     let roomrisk = "";
 
@@ -120,7 +117,7 @@ export const checkRoomRisk = (data, room) => {
 }
 
 //modify risk check to check through routeData
-export const checkOneRisk = (data, tagID) => {
+export const checkOneRisk = (data, tagID, secs = 1) => {
     let i;
     let individualrisk = [];
 
