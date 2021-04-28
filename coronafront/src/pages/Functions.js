@@ -49,7 +49,6 @@ export const checkRisk = (data) => {
             }
         }
     }
-    console.log(risks);
     console.log("---------------------------------------------")
     return risks;
 }
