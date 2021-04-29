@@ -39,7 +39,7 @@ function Charts() {
     };
   
 
-    Functions.
+    //Functions.
 
     const [readyData, setReadyData] = React.useState([]);
 
@@ -167,7 +167,7 @@ function Charts() {
     //Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
     return (
         <div>
-            {
+            
                 <div>
                     <Grid container spacing={1} justify="center">
                         <Grid container item xs={12} spacing={3} justify="center" style={{ marginRight: 100 }}>
@@ -239,7 +239,7 @@ function Charts() {
                         </Grid>
                     </Grid>
                 </div>
-            }
+            
         </div>
     );
 }

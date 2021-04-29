@@ -21,7 +21,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node ./src/index.js",
+    "start": "react-scripts start --exec babel-node ./src/index.js",
     "build": "react-scripts build",
     "test": "mocha './src/tests/*.js' --require @babel/register",
     "eject": "react-scripts eject"
