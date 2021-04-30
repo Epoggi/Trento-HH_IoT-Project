@@ -34,7 +34,7 @@ export const trimData = (rawdata) => {
 
 //function const riskSecs = (secs = 1) => { return{ checkRisk, checkRoomRisk, check}}
 //modify risk check to check through routeData
-export const checkRisk = (data, secs = 1) => {
+export const checkRisk = (data, secs = 61) => {
     let risks = [];
     let i;
 
@@ -51,7 +51,7 @@ export const checkRisk = (data, secs = 1) => {
         //Looping i2 to be every object after i
         for (i2 = i + 1; i2 < data.length; i2++) {
             //console.log("I2: " + i2);
-            //console.log("Duplicate: " + data[i].tagID != data[i2].tagID);
+           // console.log("Duplicate: " + data[i].tagID != data[i2].tagID);
             //console.log("Room1:" + new String(data[i].room).normalize() + " Room2:" + new String(data[i2].room).normalize());
            /*  console.log("Same room: " + new String(data[i].room).normalize().trim().valueOf() == new String(data[i].room).normalize().trim().valueOf());
             console.log("Type of room1:" + typeof data[i].room + ", Room: " + data[i].room)
@@ -59,27 +59,32 @@ export const checkRisk = (data, secs = 1) => {
 
             // checking that i and i2 aren't the same person, checking for same room disabled because strings are always not equal.
             if (data[i].tagID != data[i2].tagID /* && data[i].room == data[i2].room */) {
-               // console.log("Compared to: " + new Date(data[i2].time / 1000000));
-               // console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(data[i2].time / 1000000)) / 1000);
-
+                //console.log("Compared to: " + new Date(data[i2].time / 1000000));
+                //console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(data[i2].time / 1000000)) / 1000);
+                //console.log("61. if condition met");
                 //comparing if the two datapoints are within a certain number of seconds.
                 if (Math.abs(comparable - new Date(data[i2].time / 1000000)) / 1000 < secs) {
                     let distance = calcDist(data[i], data[i2]);
-                  //  console.log("Distance: " + distance);
-                  //  console.log("-----");
+                    //console.log("Distance: " + distance);
+                   //console.log("66. if condition met");
 
                     //checking the distance, from the closest to the least close to account for risk from proximity.
                     if (distance < 1) {
+                        //console.log("72. if condition met")
                         risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "risk": "high" });
                     } else if (distance < 2) {
+                        //console.log("75. else if condition met")
                         risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "risk": "medium" });
                     } else if (distance < 4) {
+                        //console.log("78. else if condition met")
                         risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "risk": "low" });
                     }
                 }
             }
         }
     }
+    console.log("Risks length: " + risks.length)
+    console.log("Risks first item: " + JSON.stringify(risks[0]))
     console.log("---------------------------------------------")
     return risks;
 }
