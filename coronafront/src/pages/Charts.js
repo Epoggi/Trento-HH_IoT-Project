@@ -133,13 +133,12 @@ function Charts() {
             }
         ]
     };
+    const [risk, setRisk] = React.useState([])
 //material ui demo ->
-//pondering how to add risks list into this..
-    function generate(element) {
-        return [0,1,2].map((value) =>
-          React.cloneElement(element, {
-            key: value,
-          }),
+    function generate() {
+        return risk.map((el => {
+            return <ListItem primaryText={el.dist} key={el.dist}/>
+        }),
         );
       }
 
@@ -150,21 +149,35 @@ function Charts() {
         return (
         <div>
             <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
+              {generate()}
             </List>
         </div>
         )} 
-    
+    /* _renderTodos(){
+    return this.state.todos.map(el => {
+        return <ListItem primaryText={el.text} key={el.id}/>
+    })
+}
+
+render(){
+    return(
+        <MobileTearSheet>
+            <List>
+                {this._renderTodos()}
+            </List>
+        </MobileTearSheet>
+    )
+} */
 //material ui demo end.
 
+
     //Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
+    const getRisksButton = () => {
+        console.log(Functions.checkRisk(trimmedData))
+        setRisk(Functions.checkRisk(trimmedData))
+        console.log("after getRisksButton, risks length: " + risks.length)
+    }
+
     return (
         <div>
             
@@ -229,7 +242,7 @@ function Charts() {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <form>
-                                        <Button onClick={() => console.log(Functions.checkRisk(trimmedData))} color="primary" variant="contained">
+                                        <Button onClick={getRisksButton} color="primary" variant="contained">
                                             get risks
                                     </Button>
                                     </form>
