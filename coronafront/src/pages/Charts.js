@@ -96,17 +96,17 @@ function Charts() {
 
 
     const filterData = () => {
-        let thisdata = trentodata.filter(trentodata => earliest <= new Date(trentodata.time / 1000000));
+        let thisdata = trimmedData.filter(trimmedData => earliest <= new Date(trimmedData.time / 1000000));
         thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.time / 1000000));
         setReadyData(thisdata);
     }
 
-    const calcDist = (posit1, posit2) => {
+/*     const calcDist = (posit1, posit2) => {
         let dist1 = Math.pow((posit1.x - posit2.x), 2)
         let dist2 = Math.pow((posit1.y - posit2.y), 2)
 
         return Math.sqrt(Math.abs(dist1 + dist2))
-    }
+    } */
 
     const data = {
         labels: ['Scatter'],
@@ -124,7 +124,7 @@ function Charts() {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: readyData,
+                data: trimmedData,
                 options: {
                     tooltips: {
                         mode: 'index'
@@ -229,7 +229,7 @@ function Charts() {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <form>
-                                        <Button onClick={ console.log(Functions.checkRisk(readyData))} color="primary" variant="contained">
+                                        <Button onClick={() => console.log(Functions.checkRisk(trimmedData))} color="primary" variant="contained">
                                             get risks
                                     </Button>
                                     </form>

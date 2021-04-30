@@ -44,7 +44,7 @@ describe('Functions.js function tests', function(){
   }])
   })
 
-  it('trimming with rawdata(100)', function(){
+  it('trimming with rawdata', function(){
     let rawdata = DataJson
    /*  for (let i = 0; i < rawdata.length; i++){
       console.log("Date: " + new Date(rawdata[i].time / 1000000))
@@ -58,16 +58,38 @@ describe('Functions.js function tests', function(){
     });
  */
     let result = Functions.trimData(rawdata)
-    console.log("Result: " + result)
+   // console.log("Result: " + result)
     for (let i = 0; i < result.length; i++){
-      console.log("Date: " + new Date(result[i].time / 1000000))
+      //console.log("Date: " + new Date(result[i].time / 1000000))
     }
   })
   describe('Check Risks functions', function(){
     describe('Check all risks', function(){
-      it('testing..', function(){
-        
-    const testData = [
+      it('checkRisks func with real data', function(){
+        console.log("---------------------------------------------")
+        console.log("Checkrisks real data test start")
+        console.log("---------------------------------------------")
+        let rawdata = DataJson
+        let trimmedData = Functions.trimData(rawdata)
+        //trimmedData.length = 5;
+
+        console.log("Trimmed Data length: " + trimmedData.length)
+        console.log("First element of trimmed Data compared to rawdata")
+        console.log("TrimmedData[0]: " + JSON.stringify(trimmedData[0]) + " and rawdata[0]: " + JSON.stringify(rawdata[0]))
+
+        let result = Functions.checkRisk(trimmedData)
+
+        console.log("result length after checkRisk: " + result.length)
+        console.log("first item of result" + JSON.stringify(result[0]));
+
+      
+        //assert.
+      })
+      it('checkRisks with dummy data', function(){
+        console.log("---------------------------------------------")
+        console.log("Checkrisks dummy test start")
+        console.log("---------------------------------------------")
+const testData = [
       {
           "name": "Location",
           "time": 1614944496619605500,
@@ -86,7 +108,7 @@ describe('Functions.js function tests', function(){
     },
 
   ]
-
+    
         let result = Functions.checkRisk(testData)
 
         assert.deepStrictEqual(result, [
