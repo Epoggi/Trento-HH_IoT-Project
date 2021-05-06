@@ -7,6 +7,7 @@ import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
 import DataJson from '../data/csvjson.json'
 import * as Functions from './Functions'
+import { CSVLink } from "react-csv";
 
 //drawer komponentit
 import Select from '@material-ui/core/Select';
@@ -233,6 +234,22 @@ function Charts() {
                                             get risks
                                     </Button>
                                     </form>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <CSVLink
+                                        data = {Functions.checkRisk(trimmedData)}
+                                        headers={[
+                                            {label: 'Distance', key: 'dist'},
+                                            {label: 'Person 1', key: 'person1'},
+                                            {label: 'Person 2', key: 'person2'},
+                                            {label: 'Time', key: 'time'},
+                                            {label: 'Risk', key: 'risk'},
+                                        ]}
+                                        filename={"Risks.csv"}
+                                        target="_blank"
+                                    >
+                                        Download Data CSV
+                                    </CSVLink>
                                 </Grid>
                             </Grid>
 
