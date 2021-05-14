@@ -10,13 +10,9 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 
 ## Getting started
 -Clone from this github repository.
-
 -Install node and npm to your computer.
-
--Hit 'npm install' at the cloned repository in your chosen cmd.
-
+-Hit 'npm install' at the cloned repository in terminal.
 -If all went well 'npm start' should start the web application.
-
 -http://localhost:3000/chart is the operable page.
 
 ### Prerequisites
@@ -39,8 +35,8 @@ Here's the abbreviated guide, highlighting the major steps:
 1. Open the official page for Node.js downloads and download Node.js for Windows by clicking the "Windows Installer" option
 2. Run the downloaded Node.js .msi Installer - including accepting the license, selecting the destination, and authenticating for the install.
      This requires Administrator privileges, and you may need to authenticate
-3. To ensure Node.js has been installed, run node -v in your terminal - you should get something like v6.9.5
-4. Update your version of npm with npm install npm --global
+3. To ensure Node.js has been installed, run 'node -v' in your terminal - you should get something like v6.9.5
+4. Update your version of npm with 'npm install npm --global'.
      This requires Administrator privileges, and you may need to authenticate
 ##### Congratulations - you've now got Node.js installed, and are ready to start building!
 
