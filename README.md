@@ -16,6 +16,7 @@ Trento provides IoT data
 -Hit 'npm install' at the cloned repository in your chosen cmd.
 
 -If all went well 'npm start' should start the web application.
+
 -http://localhost:3000/chart is the operable page.
 
 ### Prerequisites
