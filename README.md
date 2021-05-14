@@ -71,4 +71,3 @@ https://nodesource.com/blog/installing-nodejs-tutorial-windows/
 
 * []() [Joni Miettinen](https://github.com/Jonnemanni)
 * []() [Niko Hautala](https://github.com/Epoggi)
-* []() [Santeri Heiskanen](https://github.com/sunfallsande)
