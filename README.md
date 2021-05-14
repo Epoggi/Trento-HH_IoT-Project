@@ -27,6 +27,34 @@ Trento provides IoT data
 -Npm
 
 ### Installation
+Npm and node come in the same package, install node from link provided below to get both
+
+#What is npm? (https://www.npmjs.com/get-npm)
+npm makes it easy for JavaScript developers to share and reuse code, and makes it easy to update the code that you’re sharing, so you can build amazing things.
+
+#About Node.js® (https://nodejs.org/en/about/)
+As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications. In the following "hello world" example, many connections can be handled concurrently. Upon each connection, the callback is fired, but if there is no work to be done, Node.js will sleep.
+
+## Node.js and Npm
+Here's the abbreviated guide, highlighting the major steps:
+
+1. Open the official page for Node.js downloads and download Node.js for Windows by clicking the "Windows Installer" option
+2. Run the downloaded Node.js .msi Installer - including accepting the license, selecting the destination, and authenticating for the install.
+This requires Administrator privileges, and you may need to authenticate
+3. To ensure Node.js has been installed, run node -v in your terminal - you should get something like v6.9.5
+4. Update your version of npm with npm install npm --global
+This requires Administrator privileges, and you may need to authenticate
+# Congratulations - you've now got Node.js installed, and are ready to start building!
+
+
+
+
+Download:
+https://nodejs.org/en/
+
+Guide Source:
+https://nodesource.com/blog/installing-nodejs-tutorial-windows/
+
 
 ## Contact
 
