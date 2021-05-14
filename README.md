@@ -43,6 +43,7 @@ Here's the abbreviated guide, highlighting the major steps:
 
 1. Open the official page for Node.js downloads and download Node.js for Windows by clicking the "Windows Installer" option
 2. Run the downloaded Node.js .msi Installer - including accepting the license, selecting the destination, and authenticating for the install.
+     
      This requires Administrator privileges, and you may need to authenticate
 3. To ensure Node.js has been installed, run 'node -v' in your terminal - you should get something like v6.9.5
 4. Update your version of npm with 'npm install npm --global'.
