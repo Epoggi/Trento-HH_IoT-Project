@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 import DataJson from '../data/csvjson.json'
 import * as Functions from './Functions'
 import { CSVLink } from "react-csv";
+import CSVReader from "react-csv-reader";
 
 //drawer komponentit
 import Select from '@material-ui/core/Select';
@@ -21,22 +22,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 
 function Charts() {
+    
+    const [uploadData, setUploadData] = React.useState()
 
-    //drawer komponentit 
-    const [drawer, setDrawer] = React.useState(0)
-    // 0 = general summary, 1 personal summary, 2 room summary
-    const [open, setOpen] = React.useState(false);
-
-    const handleChange = (event) => {
-        setDrawer(event.target.value);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleOpen = () => {
-        setOpen(true);
+    const handleData = (data, fileInfo) => setUploadData(data);
+    
+    const papaparseOptions = {
+      header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+      transformHeader: header => header.toLowerCase().replace(/\W/g, "_")
     };
   
 
@@ -134,6 +129,7 @@ function Charts() {
             }
         ]
     };
+
     const [risk, setRisk] = React.useState([])
 //material ui demo ->
     function generate() {
@@ -171,14 +167,6 @@ render(){
 } */
 //material ui demo end.
 
-
-    //Warnings: Failed prop type: The prop (justify, direction) need to be set on 'container' element
-    const getRisksButton = () => {
-        console.log(Functions.checkRisk(trimmedData))
-        setRisk(Functions.checkRisk(trimmedData))
-        console.log("after getRisksButton, risks length: " + risks.length)
-    }
-
     return (
         <div>
             
@@ -212,41 +200,19 @@ render(){
                         </Grid>
                         <Grid container item xs={12} spacing={3} direction="row" justify="flex-end" alignItems="center">
                             <Grid item xs={6} style={{ backgroundColor: "white" }}>
-                                <h3>Summaries</h3>
-                                <Grid container item xs={10} spacing={2} direction="row" justify="flex-start" alignItems="center">
-                                <Grid item xs={2}>
-                                <Select
-                                    labelId="open-select-label"
-                                    id="open-select"
-                                    open={open}
-                                    onClose={handleClose}
-                                    onOpen={handleOpen}
-                                    value={drawer}
-                                    onChange={handleChange}
-                                >
-                                    
-                                    <MenuItem value={0}>General</MenuItem>
-                                    <MenuItem value={1}>Person</MenuItem>
-                                    <MenuItem value={2}>Room</MenuItem>
-                                </Select></Grid>
-                                <Grid item xs={2}><Typography>summary</Typography></Grid>
-                                
-                                </Grid>
-                                {renderlist()}
+                                <CSVReader
+                                    cssClass="react-csv-input"
+                                    label="Select CSV data to parse. "
+                                    onFileLoaded={handleData}
+                                    parserOptions={papaparseOptions}
+                                />                                
                             </Grid>
 
                             <Grid container item xs={4} spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
                                 <Grid item xs={4}>
                                     <Button onClick={filterData} color="primary" variant="contained">
                                         filter
-                                </Button>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <form>
-                                        <Button onClick={getRisksButton} color="primary" variant="contained">
-                                            get risks
                                     </Button>
-                                    </form>
                                 </Grid>
                                 <Grid item xs={4}>
                                     <CSVLink
