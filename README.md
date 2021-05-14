@@ -59,10 +59,10 @@ https://nodesource.com/blog/installing-nodejs-tutorial-windows/
 
 ## Using the software
 1. After installation is succesful, hit 'npm start' in your terminal at the project location
-2. This loads up browser at default http://localhost:3000, type /chart at the end (localhost:3000/chart)
-3. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file
-4. Adjusting the date pickers and pressing filter, filters the data in the scatter chart to show the datapoints between the time you have adjusted.
-5. The data for the csv creation is created in riskCheck function.
+3. This loads up browser at default http://localhost:3000, type /chart at the end (localhost:3000/chart)
+4. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file
+5. Adjusting the date pickers and pressing filter, filters the data in the scatter chart to show the datapoints between the time you have adjusted.
+6. The data for the csv creation is created in riskCheck function.
 
 ## Changing the CSV file used in the data processing
 1.
