@@ -16,7 +16,7 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 
 -Install node and npm to your computer.
 
--Hit 'npm install' at the cloned repository in terminal.
+-Hit 'npm install' at the cloned repository location with terminal.
 
 -If all went well 'npm start' should start the web application.
 
