@@ -1,13 +1,11 @@
 # Trento-HH_IoT-Project
 ##About
 Covid IoT project in collaboration with Haaga-Helia in Finland and Trento in Italy.
-Trento provides IoT data 
+Trento provides IoT data in a csv format, Haaga-Helia has created a react webtool to handle the large quantity of data and provide a CSV file with relevant information.
 
 ## Built with
 -Node.js
-
 -Npm
-
 -React
 
 ## Getting started
