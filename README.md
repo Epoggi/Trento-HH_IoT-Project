@@ -58,6 +58,7 @@ https://nodejs.org/en/
 https://nodesource.com/blog/installing-nodejs-tutorial-windows/
 
 ## Using the software
+##### remember to hit 'npm install' on your terminal, at the project location
 1. After installation is succesful, hit 'npm start' in your terminal at the project location
 3. This loads up browser at default http://localhost:3000, type /chart at the end (localhost:3000/chart)
 4. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file
