@@ -9,11 +9,14 @@ Trento provides IoT data
 -React
 
 ## Getting started
--Clone from this github repository
--Install node and npm to your computer
--Hit 'npm install' at the cloned repository in your chosen cmd
--If all went well 'npm start' should start the web application
--http://localhost:3000/chart is the operable page
+-Clone from this github repository.
+
+-Install node and npm to your computer.
+
+-Hit 'npm install' at the cloned repository in your chosen cmd.
+
+-If all went well 'npm start' should start the web application.
+-http://localhost:3000/chart is the operable page.
 
 ### Prerequisites
 -Node.js
