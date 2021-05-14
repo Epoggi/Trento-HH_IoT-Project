@@ -5,7 +5,9 @@ Trento provides IoT data
 
 ## Built with
 -Node.js
+
 -Npm
+
 -React
 
 ## Getting started
@@ -21,6 +23,7 @@ Trento provides IoT data
 
 ### Prerequisites
 -Node.js
+
 -Npm
 
 ### Installation
