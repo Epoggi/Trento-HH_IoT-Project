@@ -222,6 +222,8 @@ render(){
                                             {label: 'Person 1', key: 'person1'},
                                             {label: 'Person 2', key: 'person2'},
                                             {label: 'Time', key: 'time'},
+                                            {label: 'Room of Person 1', key: 'room1'},
+                                            {label: 'Room of Person 2', key: 'room2'},
                                             {label: 'Risk', key: 'risk'},
                                         ]}
                                         filename={"Risks.csv"}

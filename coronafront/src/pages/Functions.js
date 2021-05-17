@@ -71,13 +71,13 @@ export const checkRisk = (data, secs = 61) => {
                     //checking the distance, from the closest to the least close to account for risk from proximity.
                     if (distance < 1) {
                         //console.log("72. if condition met")
-                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "risk": "high" });
+                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "high" });
                     } else if (distance < 2) {
                         //console.log("75. else if condition met")
-                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "risk": "medium" });
+                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "medium" });
                     } else if (distance < 4) {
                         //console.log("78. else if condition met")
-                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "risk": "low" });
+                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "low" });
                     }
                 }
             }
