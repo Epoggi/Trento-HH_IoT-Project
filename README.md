@@ -28,7 +28,7 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 ### Installation
 Npm and node come in the same package, install node from link provided below to get both
 
-#### After Npm and node, other relevant items can be installed just by typing 'node install' in your terminal at the cloned project location.
+#### After Npm and node, other used components can be installed just by typing 'npm install' in your terminal at the cloned project location.
 
 ##### What is npm? (https://www.npmjs.com/get-npm)
 npm makes it easy for JavaScript developers to share and reuse code, and makes it easy to update the code that you’re sharing, so you can build amazing things.
