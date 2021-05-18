@@ -20,8 +20,6 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 
 -If all went well 'npm start' should start the web application.
 
--http://localhost:3000/chart is the operable page.
-
 ### Prerequisites
 -Node.js
 
