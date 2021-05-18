@@ -58,13 +58,7 @@ function App() {
               <CssBaseline />
               <SwitchMUI/>
                 <Switch>
-                  <Route exact path='/' exact render={(props) => <User/> }/>
-                </Switch>
-                <Switch>
-                  <Route exact path='/admin' render={(props) => <Admin/> }/>
-                </Switch> 
-                <Switch>
-                  <Route exact path='/chart' render={(props) => <Charts/> }/>
+                  <Route exact path='/' render={(props) => <Charts/> }/>
                 </Switch> 
             </div>
           </BrowserRouter>
