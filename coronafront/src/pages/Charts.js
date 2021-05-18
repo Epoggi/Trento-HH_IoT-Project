@@ -1,32 +1,23 @@
 import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { Scatter } from 'react-chartjs-2';
 import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
 import * as Functions from './Functions'
 
-//Test data
-import DataJson from '../data/csvjson.json'
+//Test data provided by Trento
+//import name from 'location'
+//import DataJson from '../data/csvjson.json'
 
 //Csv use
 import { CSVLink } from "react-csv";
 import CSVReader from "react-csv-reader";
 
-//drawer komponentit
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 
-//Summary list komponentti
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-
-
-
+//Main function of Charts.js
 function Charts() {
-    
+//React useState which receives uploaded CSV 
     const [uploadData, setUploadData] = React.useState([{
         "name": "Dummy",
         "time": 1614944496619605500,
@@ -35,7 +26,7 @@ function Charts() {
         "x": 2,
         "y": 3
     }])
-
+//Simple function to set given data into set useState
     const handleData = (data, fileInfo) => setUploadData(data);
     
     const papaparseOptions = {
@@ -47,44 +38,22 @@ function Charts() {
   
 
     //Functions.
-
+//setState for datepicker, picking new time points to use
     const [readyData, setReadyData] = React.useState([]);
 
-    const trentodata = DataJson;
-
     const [trimmedData, setTrimmedData] = React.useState([]);
-    useEffect(() => { setTrimmedData(Functions.trimData(uploadData)) }, [uploadData]);  
-  
-    //{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
-    const summary = []
+//useEffect activates each time uploadData is updated, sets data into trimmed state after using trimData function which reduces the data points
+//by minutes, eliminating the rest.
+    useEffect(() => { setTrimmedData(Functions.trimData(uploadData)) }, [uploadData]);
 
-    //create an array {tagId: i, route: {time: t, x: z, y: z}}
-    /*
-        const users = () => {
-            let i;
-            for(i = 0; i < trentodata.length-1; i++){
-                //if tagID not on list, push tagID into routeData.tagID && route info
-                //else if tagID on list, push route info
-                if (trentodata[i].tagID )
-        }}
-    */
-
-    let risks = []
-
-    let roomrisk = "";
-
-    let individualrisk = [];
-
-    //mahd. spread notaatio. Laskeminen for loopin sisällä. HashMap, hajautus algoritmi.
-    /* 
-    const [earliest, setEarliest] = React.useState(new Date(Math.min(...trentodata.map(e => new Date(e.time/1000000)))));
-    const [latest, setLatest] = React.useState(new Date(Math.max(...trentodata.map(e => new Date(e.time/1000000))))); 
-    */
+//useStates for managing the earliest and latest time points, showing on datepicker  
     const [earliest, setEarliest] = React.useState()
     const [latest, setLatest] = React.useState()
 
+//useEffect activates each time uploadData is updated
     useEffect(() => { minmaxTime() }, [uploadData]);
 
+//Function to dig the data for first and last time points
     const minmaxTime = () => {
         let i;
         let min = uploadData[0];
@@ -102,20 +71,13 @@ function Charts() {
         setLatest(new Date(max.time / 1000000));
     }
 
-
+//function activates with the filter button, uses time points user picked with time picker
     const filterData = () => {
         let thisdata = trimmedData.filter(trimmedData => earliest <= new Date(trimmedData.time / 1000000));
         thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.time / 1000000));
         setReadyData(thisdata);
     }
-
-/*     const calcDist = (posit1, posit2) => {
-        let dist1 = Math.pow((posit1.x - posit2.x), 2)
-        let dist2 = Math.pow((posit1.y - posit2.y), 2)
-
-        return Math.sqrt(Math.abs(dist1 + dist2))
-    } */
-
+//Scatter chart usage
     const data = {
         labels: ['Scatter'],
         datasets: [
@@ -141,44 +103,7 @@ function Charts() {
             }
         ]
     };
-
-    const [risk, setRisk] = React.useState([])
-//material ui demo ->
-    function generate() {
-        return risk.map((el => {
-            return <ListItem primaryText={el.dist} key={el.dist}/>
-        }),
-        );
-      }
-
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
-
-    const renderlist = () => {
-        return (
-        <div>
-            <List dense={dense}>
-              {generate()}
-            </List>
-        </div>
-        )} 
-    /* _renderTodos(){
-    return this.state.todos.map(el => {
-        return <ListItem primaryText={el.text} key={el.id}/>
-    })
-}
-
-render(){
-    return(
-        <MobileTearSheet>
-            <List>
-                {this._renderTodos()}
-            </List>
-        </MobileTearSheet>
-    )
-} */
-//material ui demo end.
-
+//Main returns of Chart.js
     return (
         <div>
             
@@ -253,5 +178,5 @@ render(){
         </div>
     );
 }
-
+//Exporting the results to use
 export default Charts
