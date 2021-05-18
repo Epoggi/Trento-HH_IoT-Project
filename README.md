@@ -15,7 +15,7 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 -Clone from this github repository.
  ```
  
- git clone https://github.com/Epoggi/Trento-HH_IoT-Project.git
+ $ git clone https://github.com/Epoggi/Trento-HH_IoT-Project.git
  
  ```
 
@@ -50,7 +50,17 @@ Here's the abbreviated guide, highlighting the major steps:
      
      This requires Administrator privileges, and you may need to authenticate
 3. To ensure Node.js has been installed, run 'node -v' in your terminal - you should get something like v6.9.5
-4. Update your version of npm with 'npm install npm --global'.
+```
+
+$ node -v
+
+```
+5. Update your version of npm with
+```
+
+$ npm install npm --global
+
+```
 
      This requires Administrator privileges, and you may need to authenticate
 ##### Congratulations - you've now got Node.js installed, and are ready to start building!
