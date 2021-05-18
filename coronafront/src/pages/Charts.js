@@ -5,8 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import { Scatter } from 'react-chartjs-2';
 import DateTimePicker from 'react-datetime-picker';
 import { Button } from '@material-ui/core';
-import DataJson from '../data/csvjson.json'
 import * as Functions from './Functions'
+
+//Test data
+import DataJson from '../data/csvjson.json'
+
+//Csv use
 import { CSVLink } from "react-csv";
 import CSVReader from "react-csv-reader";
 
@@ -23,7 +27,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 function Charts() {
     
-    const [uploadData, setUploadData] = React.useState()
+    const [uploadData, setUploadData] = React.useState([{
+        "name": "Dummy",
+        "time": 1614944496619605500,
+        "room": "dummy",
+        "tagID": 1,
+        "x": 2,
+        "y": 3
+    }])
 
     const handleData = (data, fileInfo) => setUploadData(data);
     
@@ -40,8 +51,9 @@ function Charts() {
     const [readyData, setReadyData] = React.useState([]);
 
     const trentodata = DataJson;
+
     const [trimmedData, setTrimmedData] = React.useState([]);
-    useEffect(() => { setTrimmedData(Functions.trimData(trentodata)) }, []);  
+    useEffect(() => { setTrimmedData(Functions.trimData(uploadData)) }, [uploadData]);  
   
     //{overall risk levels, close contact situations, directional contact:[{face to face, shoulder to shoulder, ...}]}
     const summary = []
@@ -71,19 +83,19 @@ function Charts() {
     const [earliest, setEarliest] = React.useState()
     const [latest, setLatest] = React.useState()
 
-    useEffect(() => { minmaxTime() }, []);
+    useEffect(() => { minmaxTime() }, [uploadData]);
 
     const minmaxTime = () => {
         let i;
-        let min = trentodata[0];
-        let max = trentodata[0];
-        for (i = 0; i < trentodata.length; i++) {
+        let min = uploadData[0];
+        let max = uploadData[0];
+        for (i = 0; i < uploadData.length; i++) {
 
-            if (trentodata[i].time < min.time) {
-                min = trentodata[i]
+            if (uploadData[i].time < min.time) {
+                min = uploadData[i]
             }
-            else if (trentodata[i].time > max.time) {
-                max = trentodata[i]
+            else if (uploadData[i].time > max.time) {
+                max = uploadData[i]
             }
         }
         setEarliest(new Date(min.time / 1000000));
