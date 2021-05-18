@@ -12,19 +12,18 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 -React
 
 ## Getting started
--Clone from this github repository.
- ```
+-Clone from this github repository. (git info https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+ ```cmd
  
- $ git clone https://github.com/Epoggi/Trento-HH_IoT-Project.git
+  git clone https://github.com/Epoggi/Trento-HH_IoT-Project.git
  
  ```
 
 -Install node and npm to your computer.
 
--Hit 'npm install' at the cloned repository location with terminal.
-     -cd coronafront folder
+-Hit  ``` npm install  ```  at the cloned repository location with terminal, coronafront folder ``` cd coronafront ```. (details in install section of this readme)
 
--If all went well 'npm start' should start the web application.
+-If all went well  ``` npm start  ```  should start the web application.
 
 ### Prerequisites
 -Node.js
@@ -50,19 +49,18 @@ Here's the abbreviated guide, highlighting the major steps:
      
      This requires Administrator privileges, and you may need to authenticate
 3. To ensure Node.js has been installed, run 'node -v' in your terminal - you should get something like v6.9.5
-```
+```cmd
 
-$ node -v
+node -v
 
 ```
 5. Update your version of npm with
+```cmd
+
+npm install npm --global
+
 ```
-
-$ npm install npm --global
-
-```
-
-     This requires Administrator privileges, and you may need to authenticate
+This requires Administrator privileges, and you may need to authenticate
 ##### Congratulations - you've now got Node.js installed, and are ready to start building!
 
 ##### Download:
@@ -72,7 +70,7 @@ https://nodejs.org/en/
 https://nodesource.com/blog/installing-nodejs-tutorial-windows/
 
 ### Other installations
-hit 'npm install' on your terminal, at the project location
+hit  ``` npm install  ```  on your terminal, at the project location, coronafront folder
 
 ## Using the software
 ##### remember to hit 'npm install' on your terminal, at the project location
