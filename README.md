@@ -13,9 +13,11 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 
 ## Getting started
 -Clone from this github repository.
- ´´´
+ ```
+ 
  git clone https://github.com/Epoggi/Trento-HH_IoT-Project.git
- ´´´
+ 
+ ```
 
 -Install node and npm to your computer.
 
