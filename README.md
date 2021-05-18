@@ -62,15 +62,16 @@ hit 'npm install' on your terminal, at the project location
 
 ## Using the software
 ##### remember to hit 'npm install' on your terminal, at the project location
-This step downloads necessary parts e.g. react
+This step downloads necessary parts e.g. react and other components
+
 1. After installation is succesful, hit 'npm start' in your terminal at the project location
-3. This loads up browser at default http://localhost:3000, type /chart at the end (localhost:3000/chart)
-4. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file
-5. Adjusting the date pickers and pressing filter, filters the data in the scatter chart to show the datapoints between the time you have adjusted.
-6. The data for the csv creation is created in riskCheck function.
+2. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file and a button to add csv file
+3. Adjusting the date pickers and pressing filter, filters the data in the scatter chart to show the datapoints between the time you have adjusted.
+4. The data for the csv creation is created in riskCheck function.
 
 ## Changing the CSV file used in the data processing
-1.
+1. Under the chart is select CSV data to parse, button to open file browser and after it selected file
+2. Test data is found at data folder in the project under src folder
 
 ## Contact
 
