@@ -58,7 +58,7 @@ export const checkRisk = (data, secs = 61) => {
             console.log("Type of room2:" + typeof data[i2].room + ", Room: " + data[i].room) */
 
             // checking that i and i2 aren't the same person, checking for same room disabled because strings are always not equal.
-            if (data[i].tagID != data[i2].tagID /* && data[i].room == data[i2].room */) {
+            if (data[i].tagID !== data[i2].tagID /* && data[i].room == data[i2].room */) {
                 //console.log("Compared to: " + new Date(data[i2].time / 1000000));
                 //console.log("time comparison: " + Math.abs(comparable.getTime() - new Date(data[i2].time / 1000000)) / 1000);
                 //console.log("61. if condition met");
@@ -116,7 +116,7 @@ export const checkRoomRisk = (data, room, secs = 1) => {
                 if (data[i2].room === room) {
 
                     // checking that i and i2 aren't the same person.
-                    if (data[i].tagID != data[i2].tagID) {
+                    if (data[i].tagID !== data[i2].tagID) {
 
                         //comparing if the two datapoints are within a certain number of seconds.
                         if (Math.abs(comparable - new Date(data[i2].time / 1000000)) / 1000 < secs) {
@@ -173,7 +173,7 @@ export const checkOneRisk = (data, tagID, secs = 1) => {
         for (i2 = i + 1; i2 < data.length; i2++) {
 
             // checking that i is the person we're checking, that i and i2 aren't the same person, and that they are in the same room.
-            if (data[i].tagID === tagID && data[i].tagID != data[i2].tagID && data[i].room === data[i2].room) {
+            if (data[i].tagID === tagID && data[i].tagID !== data[i2].tagID && data[i].room === data[i2].room) {
 
                 //comparing if the two datapoints are within a certain number of seconds.
                 if (Math.abs(comparable - new Date(data[i2].time / 1000000)) / 1000 < secs) {
