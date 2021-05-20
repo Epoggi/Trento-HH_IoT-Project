@@ -68,7 +68,7 @@ function Charts() {
             }
         }
         setEarliest(new Date(min.time / 1000000));
-        setLatest(new Date(max.time / 1000000));
+        setLatest(new Date(max.time / 1000000)); 
     }
 
 //function activates with the filter button, uses time points user picked with time picker
@@ -153,6 +153,7 @@ function Charts() {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <CSVLink
+                                    /* immediate run why? */
                                         data = {Functions.checkRisk(trimmedData)}
                                         headers={[
                                             {label: 'Distance', key: 'dist'},
