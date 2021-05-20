@@ -26,9 +26,9 @@ export const trimData = (rawdata) => {
                 list.push(rawdata[i])
             }  
     }
-    console.log("TrimmedData length: " + list.length)
+/*     console.log("TrimmedData length: " + list.length)
     console.log("Data first item: " + JSON.stringify(list[0]))
-    console.log("---------------------------------------------") 
+    console.log("---------------------------------------------")  */
     return list
 }
 
@@ -39,11 +39,11 @@ export const trimData = (rawdata) => {
 export const checkRisk = (data, secs = 61) => {
     let risks = [];
     let i;
-
+/* 
     console.log("Data length: " + data.length)
     console.log("Data first item: " + JSON.stringify(data[0]))
     console.log("---------------------------------------------") 
-
+ */
     //Starting the loop into the data.
     for (i = 0; i < data.length - 1; i++) {
         //Getting a date to compare to.
@@ -65,20 +65,20 @@ export const checkRisk = (data, secs = 61) => {
                 //console.log("tags differ if condition met");
                 //comparing if the two datapoints are within a certain number of seconds.
                 if (Math.abs(comparable - new Date(data[i2].time / 1000000)) / 1000 < secs) {
-                    console.log(" time points close enough if condition met ")
+                   // console.log(" time points close enough if condition met ")
                     let distance = calcDist(data[i], data[i2]);
                    //console.log("56. if condition met");
 
                     //checking the distance, from the closest to the least close to account for risk from proximity.
                     if (distance < 1) {
-                        console.log(" if condition met")
-                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "high" });
+                       // console.log(" if condition met")
+                        risks.push({ "dist": distance, "person1": data[i].tagid, "person2": data[i2].tagid, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "high" });
                     } else if (distance < 2) {
-                        console.log("1 else if condition met")
-                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "medium" });
+                       // console.log("1 else if condition met")
+                        risks.push({ "dist": distance, "person1": data[i].tagid, "person2": data[i2].tagid, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "medium" });
                     } else if (distance < 4) {
-                        console.log("2 else if condition met")
-                        risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "low" });
+                       // console.log("2 else if condition met")
+                        risks.push({ "dist": distance, "person1": data[i].tagid, "person2": data[i2].tagid, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "low" });
                     }
                 }
             }
