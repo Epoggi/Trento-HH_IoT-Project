@@ -1,3 +1,4 @@
+//Functions.js is a file to hold several functions which can be outsourced from the page codes to make the code cleaner
 
 //filter rawdata by minutes
 export const trimData = (rawdata) => {
@@ -17,22 +18,20 @@ export const trimData = (rawdata) => {
 
         let list = [];
         list.push(minTime(rawdata))
-        //console.log("First date: " + new Date(list[list.length-1].time/1000000))
-        //console.log("First minute: " + new Date(list[list.length-1].time/1000000).getMinutes())
-
+ 
         for (let i = 0; i < rawdata.length - 1; i++) {
             //search for the minutes
-           // console.log("Compare minute: " + new Date(rawdata[i].time/1000000).getMinutes())
             
             if (new Date(list[list.length-1].time/1000000).getMinutes() < new Date(rawdata[i].time/1000000).getMinutes() || new Date(list[list.length-1].time/1000000).getHours() < new Date(rawdata[i].time/1000000).getHours() ){
                 list.push(rawdata[i])
-                //console.log("New pushed date: " + new Date(rawdata[i].time/1000000))
             }  
     }
     return list
 }
 
+//Possible improvement to wrap several functions inside a main function
 //function const riskSecs = (secs = 1) => { return{ checkRisk, checkRoomRisk, check}}
+
 //modify risk check to check through routeData
 export const checkRisk = (data, secs = 61) => {
     let risks = [];
@@ -40,22 +39,14 @@ export const checkRisk = (data, secs = 61) => {
 
     //Starting the loop into the data.
     for (i = 0; i < data.length - 1; i++) {
-        //console.log("I: " + i);
         //Getting a date to compare to.
         let comparable = new Date(data[i].time / 1000000);
-        //console.log("Comparable: " + comparable);
         //Initializing the integer being compared to
         let i2;
 
 
         //Looping i2 to be every object after i
         for (i2 = i + 1; i2 < data.length; i2++) {
-            //console.log("I2: " + i2);
-           // console.log("Duplicate: " + data[i].tagID != data[i2].tagID);
-            //console.log("Room1:" + new String(data[i].room).normalize() + " Room2:" + new String(data[i2].room).normalize());
-           /*  console.log("Same room: " + new String(data[i].room).normalize().trim().valueOf() == new String(data[i].room).normalize().trim().valueOf());
-            console.log("Type of room1:" + typeof data[i].room + ", Room: " + data[i].room)
-            console.log("Type of room2:" + typeof data[i2].room + ", Room: " + data[i].room) */
 
             // checking that i and i2 aren't the same person, checking for same room disabled because strings are always not equal.
             if (data[i].tagID !== data[i2].tagID /* && data[i].room == data[i2].room */) {
@@ -65,27 +56,27 @@ export const checkRisk = (data, secs = 61) => {
                 //comparing if the two datapoints are within a certain number of seconds.
                 if (Math.abs(comparable - new Date(data[i2].time / 1000000)) / 1000 < secs) {
                     let distance = calcDist(data[i], data[i2]);
-                    //console.log("Distance: " + distance);
-                   //console.log("66. if condition met");
+                   //console.log("56. if condition met");
 
                     //checking the distance, from the closest to the least close to account for risk from proximity.
                     if (distance < 1) {
-                        //console.log("72. if condition met")
+                        //console.log("61. if condition met")
                         risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "high" });
                     } else if (distance < 2) {
-                        //console.log("75. else if condition met")
+                        //console.log("65. else if condition met")
                         risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "medium" });
                     } else if (distance < 4) {
-                        //console.log("78. else if condition met")
+                        //console.log("68. else if condition met")
                         risks.push({ "dist": distance, "person1": data[i].tagID, "person2": data[i2].tagID, "time": new Date(data[i].time / 1000000), "room1": data[i].room, "room2": data[i2].room, "risk": "low" });
                     }
                 }
             }
         }
     }
-    console.log("Risks length: " + risks.length)
+//left some test logs for possible problems, most of tests are done with mocha at tests/test.js
+/*     console.log("Risks length: " + risks.length)
     console.log("Risks first item: " + JSON.stringify(risks[0]))
-    console.log("---------------------------------------------")
+    console.log("---------------------------------------------") */
     return risks;
 }
 
@@ -191,21 +182,9 @@ export const checkOneRisk = (data, tagID, secs = 1) => {
             }
         }
     }
-    console.log(individualrisk);
-    console.log("---------------------------------------------")
+/*     console.log(individualrisk);
+    console.log("---------------------------------------------") */
     return individualrisk;
-}
-
-//mahd. spread notaatio. Laskeminen for loopin sisällä. HashMap, hajautus algoritmi.
-/* 
-const [earliest, setEarliest] = React.useState(new Date(Math.min(...trentodata.map(e => new Date(e.time/1000000)))));
-const [latest, setLatest] = React.useState(new Date(Math.max(...trentodata.map(e => new Date(e.time/1000000))))); 
-*/
-
-export const filterData = (trentodata, earliest, latest) => {
-    let thisdata = trentodata.filter(trentodata => earliest <= new Date(trentodata.time / 1000000));
-    thisdata = thisdata.filter(thisdata => latest >= new Date(thisdata.time / 1000000));
-    return thisdata;
 }
 
 export const calcDist = (posit1, posit2) => {

@@ -12,15 +12,18 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 -React
 
 ## Getting started
--Clone from this github repository.
+-Clone from this github repository. (git info https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+ ```cmd
+ 
+  git clone https://github.com/Epoggi/Trento-HH_IoT-Project.git
+ 
+ ```
 
 -Install node and npm to your computer.
 
--Hit 'npm install' at the cloned repository location with terminal.
+-Hit  ``` npm install  ```  at the cloned repository location with terminal, coronafront folder ``` cd coronafront ```. (details in install section of this readme)
 
--If all went well 'npm start' should start the web application.
-
--http://localhost:3000/chart is the operable page.
+-If all went well  ``` npm start  ```  should start the web application.
 
 ### Prerequisites
 -Node.js
@@ -30,7 +33,7 @@ Trento provides IoT data in a csv format, Haaga-Helia has created a react webtoo
 ### Installation
 Npm and node come in the same package, install node from link provided below to get both
 
-#### After Npm and node, other relevant items can be installed just by typing 'node install' in your terminal at the cloned project location.
+#### After Npm and node, other used components can be installed just by typing 'npm install' in your terminal at the cloned project location.
 
 ##### What is npm? (https://www.npmjs.com/get-npm)
 npm makes it easy for JavaScript developers to share and reuse code, and makes it easy to update the code that you’re sharing, so you can build amazing things.
@@ -46,9 +49,18 @@ Here's the abbreviated guide, highlighting the major steps:
      
      This requires Administrator privileges, and you may need to authenticate
 3. To ensure Node.js has been installed, run 'node -v' in your terminal - you should get something like v6.9.5
-4. Update your version of npm with 'npm install npm --global'.
+```cmd
 
-     This requires Administrator privileges, and you may need to authenticate
+node -v
+
+```
+5. Update your version of npm with
+```cmd
+
+npm install npm --global
+
+```
+This requires Administrator privileges, and you may need to authenticate
 ##### Congratulations - you've now got Node.js installed, and are ready to start building!
 
 ##### Download:
@@ -58,19 +70,20 @@ https://nodejs.org/en/
 https://nodesource.com/blog/installing-nodejs-tutorial-windows/
 
 ### Other installations
-hit 'npm install' on your terminal, at the project location
+hit  ``` npm install  ```  on your terminal, at the project location, coronafront folder
 
 ## Using the software
 ##### remember to hit 'npm install' on your terminal, at the project location
-This step downloads necessary parts e.g. react
+This step downloads necessary parts e.g. react and other components
+
 1. After installation is succesful, hit 'npm start' in your terminal at the project location
-3. This loads up browser at default http://localhost:3000, type /chart at the end (localhost:3000/chart)
-4. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file
-5. Adjusting the date pickers and pressing filter, filters the data in the scatter chart to show the datapoints between the time you have adjusted.
-6. The data for the csv creation is created in riskCheck function.
+2. At this page you can see the data in a scatter chart, two date pickers, filter button and link to provide a csv file and a button to add csv file
+3. Adjusting the date pickers and pressing filter, filters the data in the scatter chart to show the datapoints between the time you have adjusted.
+4. The data for the csv creation is created in riskCheck function.
 
 ## Changing the CSV file used in the data processing
-1.
+1. Under the chart is select CSV data to parse, button to open file browser and after it selected file
+2. Test data is found at data folder in the project under src folder
 
 ## Contact
 
